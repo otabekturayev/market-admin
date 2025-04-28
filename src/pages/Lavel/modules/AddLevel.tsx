@@ -5,7 +5,7 @@ import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 
 type FormValues = {
-  name: string;
+  name: string
 };
 
 interface AddLevelProps {
@@ -32,7 +32,7 @@ const AddLevel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
     },
     onError: (error: any) => {
       if (error?.response?.status === 409) {
-        toast.error("Bundan nomli Daraja mavjud");
+        toast.error("Bunday nomli daraja mavjud");
       } else {
         toast.error("Daraja qo'shishda xatolik yuz berdi");
       }
@@ -41,7 +41,7 @@ const AddLevel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
 
   const onSubmit = (data: FormValues) => {
     mutate(data);
-    reset()
+    reset();
   };
 
   const handleCancel = () => {
@@ -59,12 +59,42 @@ const AddLevel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         <Controller
           name="name"
           control={control}
-          rules={{ required: "Darajani nomini kiriting" }}
+          rules={{ required: "Darajaning nomini kiriting" }}
           render={({ field }) => (
             <Input {...field} placeholder="Darajani nomi" />
           )}
         />
       </Form.Item>
+
+      {/* <Form.Item
+        label="Daraja (EN)"
+        validateStatus={errors.name ? "error" : ""}
+        help={errors.name.message}
+      >
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "Darajaning nomini kiriting" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Darajani inglizcha nomi" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Daraja (DE)"
+        validateStatus={errors.name?.de ? "error" : ""}
+        help={errors.name?.de?.message}
+      >
+        <Controller
+          name="name.de"
+          control={control}
+          rules={{ required: "Darajaning nemischa nomini kiriting" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Darajani nemischa nomi" />
+          )}
+        />
+      </Form.Item> */}
 
       <div className="flex justify-end gap-2">
         <Button type="primary" danger onClick={handleCancel}>

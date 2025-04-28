@@ -111,7 +111,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
           name="text"
           control={control}
           rules={{ required: "Matnni kiriting" }}
-          render={({ field }) => <Input.TextArea {...field} placeholder="Matn" rows={5} />}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
         />
       </Form.Item>
 

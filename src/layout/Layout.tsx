@@ -11,6 +11,7 @@ import { SiLevelsdotfyi } from "react-icons/si";
 import {
   MdMiscellaneousServices,
   MdOutlineAttractions,
+  MdOutlineModeOfTravel,
   MdOutlineTravelExplore,
 } from "react-icons/md";
 import { LuCalendarDays } from "react-icons/lu";
@@ -95,7 +96,7 @@ const RootLayout: React.FC = () => {
             },
             {
               key: "2",
-              icon: <MdOutlineTravelExplore />,
+              icon: <MdOutlineModeOfTravel />,
               label: <Link to="/travel-designers">Sayohat dizaynerlari</Link>,
             },
             {

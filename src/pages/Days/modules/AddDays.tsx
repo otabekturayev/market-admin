@@ -130,7 +130,7 @@ const AddDays: React.FC<AddDaysProps> = ({ onCancel, refetch }) => {
           control={control}
           rules={{ required: "Matnni kiriting" }}
           render={({ field }) => (
-            <TextArea {...field} placeholder="Matn kiriting" rows={4} />
+            <TextArea {...field} style={{ height: "100px", resize: "none" }} placeholder="Matn kiriting" rows={4} />
           )}
         />
       </Form.Item>
