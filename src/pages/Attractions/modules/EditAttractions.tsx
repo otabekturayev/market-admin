@@ -6,6 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { AttractionsDataType, DataTravelType } from "../../../types/types";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -20,7 +21,7 @@ type FormValues = {
 interface EditAttractionsProps {
   onCancel: () => void;
   refetch: () => void;
-  data: any;
+  data: AttractionsDataType;
 }
 
 const EditAttractions: React.FC<EditAttractionsProps> = ({
@@ -35,7 +36,7 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data: travels } = useFetch<any>({
+  const { data: travels } = useFetch<DataTravelType>({
     key: ["travels"],
     url: "/travels",
   });
@@ -143,7 +144,7 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
           rules={{ required: "Sayohat tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Sayohatni tanlang">
-              {travels?.data?.data?.map((opt: any) => (
+              {travels?.items?.map((opt: DataTravelType) => (
                 <Option key={opt?.id} value={opt?.id}>
                   {opt?.title}
                 </Option>

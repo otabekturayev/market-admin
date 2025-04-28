@@ -30,7 +30,7 @@ const Travel = () => {
     pageSize: 10,
   });
 
-  const { data, isLoading, refetch } = useFetch<any>({
+  const { data, isLoading, refetch } = useFetch<DataTravelType>({
     key: ["travels", pagination.current, pagination.pageSize, search],
     url: "/travels",
     config: {
