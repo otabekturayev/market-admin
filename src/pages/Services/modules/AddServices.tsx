@@ -4,6 +4,7 @@ import { Input, Button, Form, Select } from "antd";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { LevelsType } from "../../../types/types";
 
 const { Option } = Select;
 
@@ -25,7 +26,7 @@ const AddServices: React.FC<AddServicesProps> = ({ onCancel, refetch }) => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data } = useFetch<any>({
+  const { data } = useFetch<LevelsType>({
     key: ["levels"],
     url: "/levels",
   });
@@ -84,7 +85,7 @@ const AddServices: React.FC<AddServicesProps> = ({ onCancel, refetch }) => {
           rules={{ required: "Daraja tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Darajani tanlang">
-              {data?.data?.data?.map((opt: any) => (
+              {data?.items?.map((opt: LevelsType) => (
                 <Option key={opt.id} value={opt.id}>
                   {opt.name}
                 </Option>

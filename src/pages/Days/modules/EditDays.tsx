@@ -6,6 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { DataTravelType, TravelType } from "../../../types/types";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -34,7 +35,7 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data: travels } = useFetch<any>({
+  const { data: travels } = useFetch<DataTravelType>({
     key: ["travels"],
     url: "/travels",
   });
@@ -54,7 +55,7 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
   }, [data, reset]);
 
   const { mutate, isLoading } = useApiMutation({
-    url: `/days/update/${data.id}`,
+    url: `/days/update/${data?.id}`,
     method: "PATCH",
     onSuccess: () => {
       toast.success("Kun muvaffaqiyatli yangilandi");
@@ -157,7 +158,7 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
           rules={{ required: "Sayohat turini tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Sayohatni tanlang">
-              {travels?.data?.data?.map((opt: any) => (
+              {travels?.items?.map((opt: TravelType) => (
                 <Option key={opt?.id} value={opt?.id}>
                   {opt?.title}
                 </Option>

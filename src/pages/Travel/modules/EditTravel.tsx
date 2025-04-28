@@ -6,6 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { LevelsType, TravelDesignersType, TravelTypesType } from "../../../types/types";
 
 const { TextArea } = Input;
 
@@ -49,17 +50,17 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
     }
   }, [data, reset]);
 
-  const { data: levelData } = useFetch<any>({
+  const { data: levelData } = useFetch<LevelsType>({
     key: ["levels"],
     url: "/levels",
   });
 
-  const { data: travelDesignersData } = useFetch<any>({
+  const { data: travelDesignersData } = useFetch<TravelDesignersType>({
     key: ["travelDesigners"],
     url: "/travel-designers",
   });
 
-  const { data: travelTypeData } = useFetch<any>({
+  const { data: travelTypeData } = useFetch<TravelTypesType>({
       key: ["travel-types"],
       url: "/travel-types",
     });
@@ -156,7 +157,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
           rules={{ required: "Sayohat dizayneri tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Sayohat dizayneri tanlang">
-              {travelDesignersData?.data?.data?.map((designer: any) => (
+              {travelDesignersData?.items?.map((designer: any) => (
                 <Select.Option key={designer.id} value={designer.id}>
                   {designer.name}
                 </Select.Option>
@@ -173,7 +174,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
                 rules={{ required: "Sayohat turi tanlang" }}
                 render={({ field }) => (
                   <Select {...field} placeholder="Sayohat turi tanlang">
-                    {travelTypeData?.data?.data?.map((level: any) => (
+                    {travelTypeData?.items?.map((level: any) => (
                       <Select.Option key={level.id} value={level.id}>
                         {level.title}
                       </Select.Option>
@@ -190,7 +191,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
           rules={{ required: "Daraja tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Daraja tanlang">
-              {levelData?.data?.data?.map((level: any) => (
+              {levelData?.items?.map((level: any) => (
                 <Select.Option key={level.id} value={level.id}>
                   {level.name}
                 </Select.Option>

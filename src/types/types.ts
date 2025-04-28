@@ -44,7 +44,7 @@ export interface TravelTypesType {
     title: string;
     description: string;
     days: number;
-    price: string;
+    price: string | number;
     travelTypeId: string;
   };
 
@@ -69,8 +69,8 @@ export interface TravelTypesType {
     title: string;
     image: string;
     text: string;
-    long: number;
-    lat: number;
+    long: number | string;
+    lat: number | string;
     travelId: string;
   }
   
@@ -94,7 +94,7 @@ export interface TravelTypesType {
   }
 
   export interface DataServicesType extends ServicesType{
-    level: LevelsType[];
+    levels: LevelsType[];
   }
 
   export interface ArticlesType{
@@ -115,6 +115,15 @@ export interface TravelTypesType {
     aboutImage: string;
     articleId: string;
     article: ArticlesType
+  }
+
+  export interface OperatorsType{
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    phone: string;
+    email: string;
+    workTime: string;
   }
 
   

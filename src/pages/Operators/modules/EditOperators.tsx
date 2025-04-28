@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Form } from "antd";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
+import { OperatorsType } from "../../../types/types";
 
 type FormValues = {
   phone: string;
@@ -12,7 +13,7 @@ type FormValues = {
 
 interface EditOperatorsProps {
   onCancel: () => void;
-  data: any;
+  data: OperatorsType | undefined;
   refetch: () => void;
 }
 
@@ -35,7 +36,7 @@ const EditOperators: React.FC<EditOperatorsProps> = ({ onCancel, data, refetch }
   }, [data, reset]);
 
   const { mutate, isLoading } = useApiMutation({
-    url: `/operators/update/${data.id}`,
+    url: `/operators/update/${data?.id}`,
     method: "PATCH",
     onSuccess: () => {
         reset();

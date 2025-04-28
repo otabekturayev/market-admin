@@ -4,6 +4,7 @@ import { Input, Button, Form, Select } from "antd";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { DataServicesType, LevelsType } from "../../../types/types";
 
 const { Option } = Select;
 
@@ -14,7 +15,7 @@ type FormValues = {
 
 interface EditServicesProps {
   onCancel: () => void;
-  data: any;
+  data: DataServicesType | undefined;
   refetch: () => void;
 }
 
@@ -26,7 +27,7 @@ const EditServices: React.FC<EditServicesProps> = ({ onCancel, data, refetch }) 
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data: levels } = useFetch<any>({
+  const { data: levels } = useFetch<LevelsType>({
     key: ["levels"],
     url: "/levels",
   });
@@ -41,7 +42,7 @@ const EditServices: React.FC<EditServicesProps> = ({ onCancel, data, refetch }) 
   }, [data, reset]);
 
   const { mutate, isLoading } = useApiMutation({
-    url: `/services/update/${data.id}`,
+    url: `/services/update/${data?.id}`,
     method: "PATCH",
     onSuccess: () => {
         reset();
@@ -94,7 +95,7 @@ const EditServices: React.FC<EditServicesProps> = ({ onCancel, data, refetch }) 
           rules={{ required: "Daraja tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Darajani tanlang">
-              {levels?.data?.data?.map((opt: any) => (
+              {levels?.items?.map((opt: LevelsType) => (
                 <Option key={opt.id} value={opt.id}>
                   {opt.name}
                 </Option>

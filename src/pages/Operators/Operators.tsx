@@ -13,29 +13,23 @@ import useApiMutation from "../../hooks/useMutation";
 import { toast } from "react-toastify";
 import EditOperators from "./modules/EditOperators";
 import AddOperators from "./modules/AddOperators";
+import { ModulsType, OperatorsType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-interface OperatorsDataType {
-  id: string;
-  phone: string;
-  email: string;
-  workTime: string;
-}
-
 const Operators = () => {
   const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [operatorsSingleData, setOperatorsSingleData] = useState<OperatorsDataType>();
-  const [formType, setFormType] = useState<string>("");
-  const [pagination, setPagination] = useState({
+  const [operatorsSingleData, setOperatorsSingleData] = useState<OperatorsType>();
+  const [formType, setFormType] = useState<ModulsType>("");
+  const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
     current: 1,
     pageSize: 10,
   });
 
-  const { data, isLoading, refetch } = useFetch<any>({
+  const { data, isLoading, refetch } = useFetch<OperatorsType>({
     key: ["operators", pagination.current, pagination.pageSize, search],
     url: "/operators",
     config: {
@@ -59,12 +53,12 @@ const Operators = () => {
     },
   });
 
-  const showModal = (type: string) => {
+  const showModal = (type: ModulsType) => {
     setIsModalOpen(true);
     setFormType(type);
   };
 
-  const handleEdit = (record: OperatorsDataType, type: string) => {
+  const handleEdit = (record: OperatorsType, type: ModulsType) => {
     setOperatorsSingleData(record);
     showModal(type);
   };
@@ -78,11 +72,11 @@ const Operators = () => {
     setPagination({ ...pagination, current: 1 });
   };
 
-  const handleDelete = (record: OperatorsDataType) => {
+  const handleDelete = (record: OperatorsType) => {
     mutate({ id: record?.id });
   };
 
-  const columns: ColumnsType<OperatorsDataType> = [
+  const columns: ColumnsType<OperatorsType> = [
     {
       title: "№",
       render: (_, __, index) => (
@@ -148,13 +142,13 @@ const Operators = () => {
 
       <Table
         columns={columns}
-        dataSource={data?.data?.data || []}
+        dataSource={data?.items || []}
         rowKey="id"
         loading={isLoading}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,
-          total: data?.data?.total || 0, // agar backend totalni jo'natsa
+          total: data?.total || 0, // agar backend totalni jo'natsa
           showSizeChanger: true,
           pageSizeOptions: ['10', '20', '50'],
           onChange: (page, pageSize) => {

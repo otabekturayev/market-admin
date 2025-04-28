@@ -21,7 +21,7 @@ type FormValues = {
 interface EditAttractionsProps {
   onCancel: () => void;
   refetch: () => void;
-  data: AttractionsDataType;
+  data: AttractionsDataType | undefined;
 }
 
 const EditAttractions: React.FC<EditAttractionsProps> = ({
@@ -35,6 +35,8 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
     reset,
     formState: { errors },
   } = useForm<FormValues>();
+
+
 
   const { data: travels } = useFetch<DataTravelType>({
     key: ["travels"],
