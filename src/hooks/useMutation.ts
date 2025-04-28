@@ -4,7 +4,7 @@ import api from '../service/api';
 interface UseApiMutationProps<TData> {
   url: string;
   method?: 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: any | TData) => void;
   onError?: (error: unknown) => void;
   isFormData?: boolean;
 }
