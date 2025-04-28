@@ -6,6 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { ArticlesType } from "../../../types/types";
 
 type FormValues = {
   title: string;
@@ -31,7 +32,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data, } = useFetch<any>({
+  const { data, } = useFetch<ArticlesType>({
       key: ['articles'],
       url: '/articles',
     });
@@ -207,7 +208,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
           render={({ field }) => (
             <Select {...field} placeholder="Maqolani tanlang">
               {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
-              {data?.data?.data?.map((article: any) => (
+              {data?.items?.map((article: ArticlesType) => (
                 <Select.Option key={article?.id} value={article?.id}>
                   {article?.title}
                 </Select.Option>

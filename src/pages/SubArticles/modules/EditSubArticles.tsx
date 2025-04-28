@@ -6,6 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
+import { ArticlesType } from "../../../types/types";
 
 type FormValues = {
   title: string;
@@ -33,7 +34,7 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data: articles } = useFetch<any>({
+  const { data: articles } = useFetch<ArticlesType>({
     key: ["articles"],
     url: "/articles",
   });
@@ -237,7 +238,7 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
           rules={{ required: "Maqola ID tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Maqolani tanlang">
-              {articles?.data?.data?.map((article: any) => (
+              {articles?.items?.map((article: ArticlesType) => (
                 <Select.Option key={article?.id} value={article?.id}>
                   {article?.title}
                 </Select.Option>
