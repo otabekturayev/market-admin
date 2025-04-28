@@ -143,8 +143,8 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
           render={({ field }) => (
             <Select {...field} placeholder="Sayohat dizaynerini tanlang">
               {travelDesignersData?.items?.map((level: TravelDesignersType) => (
-                <Select.Option key={level.id} value={level.id}>
-                  {level.name}
+                <Select.Option key={level?.id} value={level?.id}>
+                  {level?.name}
                 </Select.Option>
               ))}
             </Select>
@@ -160,8 +160,8 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
           render={({ field }) => (
             <Select {...field} placeholder="Sayohat turi tanlang">
               {travelTypeData?.items?.map((level: TravelTypesType) => (
-                <Select.Option key={level.id} value={level.id}>
-                  {level.title}
+                <Select.Option key={level?.id} value={level?.id}>
+                  {level?.title}
                 </Select.Option>
               ))}
             </Select>
@@ -177,8 +177,8 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
           render={({ field }) => (
             <Select {...field} placeholder="Daraja tanlang">
               {levelData?.items?.map((level: LevelsType) => (
-                <Select.Option key={level.id} value={level.id}>
-                  {level.name}
+                <Select.Option key={level?.id} value={level?.id}>
+                  {level?.name}
                 </Select.Option>
               ))}
             </Select>

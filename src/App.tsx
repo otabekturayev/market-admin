@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import RootLayout from "./layout/Layout";
 import Error404 from "./pages/Error404/Error404";
 import Login from "./pages/Auth/Login";
@@ -17,9 +17,20 @@ import Operators from "./pages/Operators/Operators";
 import TravelTypes from "./pages/TRavelTypes/TravelTypes";
 import { ConfigProvider } from "antd";
 import { useDarkModeStore } from "./store/darkModeStore";
+import { useStore } from "./store/userStore";
+import { useEffect } from "react";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
+  const navigate = useNavigate();
+  const { accessToken } = useStore();
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken]);
+
   return (
     <>
       <ConfigProvider

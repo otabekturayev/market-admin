@@ -157,9 +157,9 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
           rules={{ required: "Sayohat dizayneri tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Sayohat dizayneri tanlang">
-              {travelDesignersData?.items?.map((designer: any) => (
-                <Select.Option key={designer.id} value={designer.id}>
-                  {designer.name}
+              {travelDesignersData?.items?.map((designer: TravelDesignersType) => (
+                <Select.Option key={designer?.id} value={designer?.id}>
+                  {designer?.name}
                 </Select.Option>
               ))}
             </Select>
@@ -174,9 +174,9 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
                 rules={{ required: "Sayohat turi tanlang" }}
                 render={({ field }) => (
                   <Select {...field} placeholder="Sayohat turi tanlang">
-                    {travelTypeData?.items?.map((level: any) => (
-                      <Select.Option key={level.id} value={level.id}>
-                        {level.title}
+                    {travelTypeData?.items?.map((level: TravelTypesType) => (
+                      <Select.Option key={level?.id} value={level?.id}>
+                        {level?.title}
                       </Select.Option>
                     ))}
                   </Select>
@@ -191,9 +191,9 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
           rules={{ required: "Daraja tanlang" }}
           render={({ field }) => (
             <Select {...field} placeholder="Daraja tanlang">
-              {levelData?.items?.map((level: any) => (
-                <Select.Option key={level.id} value={level.id}>
-                  {level.name}
+              {levelData?.items?.map((level: LevelsType) => (
+                <Select.Option key={level?.id} value={level?.id}>
+                  {level?.name}
                 </Select.Option>
               ))}
             </Select>
