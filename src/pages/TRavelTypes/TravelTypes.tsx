@@ -1,0 +1,169 @@
+import { Button, Input, Table, Space, Popconfirm } from "antd";
+import type { GetProps } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { useState } from "react";
+import { EditOutlined, DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import UniversalModal from "../../components/UniversalModal";
+import { useFetch } from "../../hooks/useFetch";
+import useApiMutation from "../../hooks/useMutation";
+import { toast } from "react-toastify";
+import EditTravelTypes from "./modules/EditTravelTypes";
+import AddTravelTypes from "./modules/AddTravelTypes";
+import { ModulsType, TravelTypesType } from "../../types/types";
+
+type SearchProps = GetProps<typeof Input.Search>;
+
+const { Search } = Input;
+
+
+const TravelTypes = () => {
+  const [search, setSearch] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [travelTypesSingleData, setTravelTypesSingleData] = useState<TravelTypesType>();
+  const [formType, setFormType] = useState<ModulsType>("");
+  const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
+    current: 1,
+    pageSize: 10,
+  });
+
+  const { data, isLoading, refetch } = useFetch<TravelTypesType>({
+    key: ['travel-types', pagination.current, pagination.pageSize, search],
+    url: '/travel-types',
+    config: {
+      params: {
+        page: pagination.current,
+        limit: pagination.pageSize,
+        title: search || null
+      },
+    },
+  });
+
+  const { mutate } = useApiMutation({
+    url: '/travel-types/delete',
+    method: 'DELETE',
+    onSuccess: () => {
+      toast.success('Sayohat turi muvaffaqiyatli o‘chirildi')
+      refetch()
+    },
+    onError: () => {
+      toast.error('Sayohat turi o‘chirishda xatolik yuz berdi')
+    },
+  });
+
+  const showModal = (type: ModulsType) => {
+    setIsModalOpen(true);
+    setFormType(type);
+  };
+
+  const handleEdit = (record: TravelTypesType, type: ModulsType) => {
+    setTravelTypesSingleData(record);
+    showModal(type);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    setSearch(value);
+    setPagination({ ...pagination, current: 1 });
+  };
+
+  const handleDelete = (record: TravelTypesType) => {
+    mutate({ id: record?.id });
+  };
+
+  const columns: ColumnsType<TravelTypesType> = [
+    {
+      title: "№",
+      render: (_, __, index) => (
+        <span>
+          {(pagination?.current - 1) * pagination?.pageSize + index + 1}
+        </span>
+      ),
+      width: 70,
+    },
+    {
+      title: "Nomi",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Rasm",
+      dataIndex: "image",
+      key: "image",
+      render: (image: string) => (
+        <img src={image} alt="Travel Designer" className="max-w-[100px] h-auto object-cover rounded" />
+      ),
+    },
+    {
+      title: "Harakatlar",
+      key: "actions",
+      render: (_, record) => (
+        <Space>
+          <Button
+            type="text"
+            icon={<EditOutlined style={{ color: "green" }} />}
+            onClick={() => handleEdit(record, "edit")}
+          />
+          <Popconfirm
+            title="Ushbu ma'lumotni o'chirishga aminmisiz?"
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            onConfirm={() => handleDelete(record)}
+          >
+            <Button
+              type="text"
+              danger
+              icon={
+                <DeleteOutlined />
+              }
+            />
+          </Popconfirm>
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-[23px] font-semibold">Sayohat turlari</div>
+        <div className="flex items-center gap-3">
+          <Search
+            placeholder="Qidiruv"
+            onSearch={onSearch}
+            enterButton
+            allowClear
+          />
+          <Button type="primary" onClick={() => showModal("add")}>Qo'shish</Button>
+        </div>
+      </div>
+
+      <Table
+        columns={columns}
+        dataSource={data?.items || []}
+        rowKey="id"
+        loading={isLoading}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: data?.total || 0, // agar backend totalni jo'natsa
+          showSizeChanger: true,
+          pageSizeOptions: ['10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize });
+          },
+        }}
+      />
+      <UniversalModal
+        open={isModalOpen}
+        title={formType === "edit" ? "Sayohat turini tahrirlash" : "Sayohat turini qo'shish"}
+        onCancel={handleCancel}
+      >
+        {formType === "edit" ? <EditTravelTypes onCancel={handleCancel} data={travelTypesSingleData} refetch={refetch}/> : <AddTravelTypes refetch={refetch} onCancel={handleCancel}/>} 
+      </UniversalModal>
+    </div>
+  );
+};
+
+export default TravelTypes;
