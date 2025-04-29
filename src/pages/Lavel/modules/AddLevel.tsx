@@ -5,7 +5,9 @@ import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 
 type FormValues = {
-  name: string
+  nameUz: string;
+  nameRu: string;
+  nameEn: string;
 };
 
 interface AddLevelProps {
@@ -52,49 +54,49 @@ const AddLevel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Daraja"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name?.message}
+        label="Daraja (UZ)"
+        validateStatus={errors.nameUz ? "error" : ""}
+        help={errors.nameUz?.message}
       >
         <Controller
-          name="name"
+          name="nameUz"
           control={control}
-          rules={{ required: "Darajaning nomini kiriting" }}
+          rules={{ required: "O'zbekcha nomini kiriting" }}
           render={({ field }) => (
-            <Input {...field} placeholder="Darajani nomi" />
-          )}
-        />
-      </Form.Item>
-
-      {/* <Form.Item
-        label="Daraja (EN)"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name.message}
-      >
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: "Darajaning nomini kiriting" }}
-          render={({ field }) => (
-            <Input {...field} placeholder="Darajani inglizcha nomi" />
+            <Input {...field} placeholder="Darajani o'zbekcha nomi" />
           )}
         />
       </Form.Item>
 
       <Form.Item
-        label="Daraja (DE)"
-        validateStatus={errors.name?.de ? "error" : ""}
-        help={errors.name?.de?.message}
+        label="Daraja (RU)"
+        validateStatus={errors.nameRu ? "error" : ""}
+        help={errors.nameRu?.message}
       >
         <Controller
-          name="name.de"
+          name="nameRu"
           control={control}
-          rules={{ required: "Darajaning nemischa nomini kiriting" }}
+          rules={{ required: "Ruscha nomini kiriting" }}
           render={({ field }) => (
-            <Input {...field} placeholder="Darajani nemischa nomi" />
+            <Input {...field} placeholder="Darajani ruscha nomi" />
           )}
         />
-      </Form.Item> */}
+      </Form.Item>
+
+      <Form.Item
+        label="Daraja (EN)"
+        validateStatus={errors.nameEn ? "error" : ""}
+        help={errors.nameEn?.message}
+      >
+        <Controller
+          name="nameEn"
+          control={control}
+          rules={{ required: "Inglizcha nomini kiriting" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Darajani inglizcha nomi" />
+          )}
+        />
+      </Form.Item>
 
       <div className="flex justify-end gap-2">
         <Button type="primary" danger onClick={handleCancel}>

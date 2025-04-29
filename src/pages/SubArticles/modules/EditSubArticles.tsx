@@ -9,8 +9,12 @@ import { useFetch } from "../../../hooks/useFetch";
 import { ArticlesType } from "../../../types/types";
 
 type FormValues = {
-  title: string;
-  text: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  textUz: string;
+  textRu: string;
+  textEn: string;
   images: RcFile[] | string[];
   aboutImages: RcFile[] | string[];
   articleId: string;
@@ -19,7 +23,7 @@ type FormValues = {
 interface EditSubArticlesProps {
   onCancel: () => void;
   refetch: () => void;
-  data: any
+  data: any;
 }
 
 const EditSubArticles: React.FC<EditSubArticlesProps> = ({
@@ -50,18 +54,21 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
     onError: (error: any) => {
       if (error?.response?.status === 409) {
         toast.error("Bunday nomli Kichkina maqola allaqachon mavjud");
-      }else{
+      } else {
         toast.error("Kichkina maqola yangilashda xatolik yuz berdi");
       }
-      
     },
   });
 
   useEffect(() => {
     if (data) {
       reset({
-        title: data.title,
-        text: data.text,
+        titleUz: data.titleUz,
+        titleRu: data.titleRu,
+        titleEn: data.titleEn,
+        textUz: data.textUz,
+        textRu: data.textRu,
+        textEn: data.textEn,
         articleId: data.articleId,
         images: data.images ? [data.images as any] : [],
         aboutImages: data.aboutImages ? [data.aboutImages as any] : [],
@@ -76,8 +83,12 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("text", data.text);
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
+    formData.append("textUz", data.textUz);
+    formData.append("textRu", data.textRu);
+    formData.append("textEn", data.textEn);
     formData.append("articleId", data.articleId);
 
     // Agar yangi rasm yuklangan bo'lsa, uni yuboramiz
@@ -85,7 +96,11 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
       formData.append("images", data.images[0]);
     }
 
-    if (data.aboutImages && data.aboutImages[0] && typeof data.aboutImages[0] !== "string") {
+    if (
+      data.aboutImages &&
+      data.aboutImages[0] &&
+      typeof data.aboutImages[0] !== "string"
+    ) {
       formData.append("aboutImage", data.aboutImages[0]);
     }
 
@@ -93,7 +108,11 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
   };
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
+    const isAllowed = [
+      "image/png",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
     if (!isAllowed) {
       toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
     }
@@ -104,32 +123,107 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       {/* Title */}
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.title ? "error" : ""}
-        help={errors.title?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
       >
         <Controller
-          name="title"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavhani kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Uz)" />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
+      >
+        <Controller
+          name="titleRu"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Ru)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
+      >
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (En)" />
+          )}
         />
       </Form.Item>
 
       {/* Text */}
       <Form.Item
-        label="Matn"
-        validateStatus={errors.text ? "error" : ""}
-        help={errors.text?.message}
+        label="Matn (Uz)"
+        validateStatus={errors.textUz ? "error" : ""}
+        help={errors.textUz?.message}
       >
         <Controller
-          name="text"
+          name="textUz"
           control={control}
-          rules={{ required: "Matnni kiriting" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+          rules={{ required: "Matnni kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Matn"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
-
+      <Form.Item
+        label="Matn (Ru)"
+        validateStatus={errors.textRu ? "error" : ""}
+        help={errors.textRu?.message}
+      >
+        <Controller
+          name="textRu"
+          control={control}
+          rules={{ required: "Matnni kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Matn"
+              rows={5}
+            />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Matn (En)"
+        validateStatus={errors.textEn ? "error" : ""}
+        help={errors.textEn?.message}
+      >
+        <Controller
+          name="textEn"
+          control={control}
+          rules={{ required: "Matnni kiriting (En)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Matn"
+              rows={5}
+            />
+          )}
+        />
+      </Form.Item>
       {/* Images */}
       <Form.Item
         label="Asosiy rasm yuklash"
@@ -153,7 +247,12 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
               fileList={
                 value?.map((file: any, index: number) =>
                   typeof file === "string"
-                    ? { uid: `${index}`, name: file.split("/").pop(), status: "done", url: file }
+                    ? {
+                        uid: `${index}`,
+                        name: file.split("/").pop(),
+                        status: "done",
+                        url: file,
+                      }
                     : file
                 ) || []
               }
@@ -201,7 +300,12 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
               fileList={
                 value?.map((file: any, index: number) =>
                   typeof file === "string"
-                    ? { uid: `${index}`, name: file.split("/").pop(), status: "done", url: file }
+                    ? {
+                        uid: `${index}`,
+                        name: file.split("/").pop(),
+                        status: "done",
+                        url: file,
+                      }
                     : file
                 ) || []
               }
@@ -240,7 +344,7 @@ const EditSubArticles: React.FC<EditSubArticlesProps> = ({
             <Select {...field} placeholder="Maqolani tanlang">
               {articles?.items?.map((article: ArticlesType) => (
                 <Select.Option key={article?.id} value={article?.id}>
-                  {article?.title}
+                  {article?.titleUz}
                 </Select.Option>
               ))}
             </Select>

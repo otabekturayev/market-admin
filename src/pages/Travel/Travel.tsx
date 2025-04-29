@@ -175,6 +175,7 @@ const Travel = () => {
         dataSource={data?.items || []}
         rowKey="key"
         loading={isLoading}
+        scroll={{ x: "max-content" }}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,

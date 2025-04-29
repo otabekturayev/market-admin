@@ -86,9 +86,46 @@ const Lavel = () => {
       width: 70,
     },
     {
-      title: "Daraja",
-      dataIndex: "name",
-      key: "name",
+      title: "Daraja (UZ)",
+      dataIndex: "nameUz",
+      key: "nameUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Daraja (RU)",
+      dataIndex: "nameRu",
+      key: "nameRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Daraja (EN)",
+      dataIndex: "nameEn",
+      key: "nameEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Harakatlar",
@@ -138,6 +175,7 @@ const Lavel = () => {
         dataSource={data?.items || []}
         rowKey="id"
         loading={isLoading}
+        scroll={{ x: "max-content" }}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,

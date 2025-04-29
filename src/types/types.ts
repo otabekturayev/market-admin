@@ -4,7 +4,9 @@ export interface LevelsType {
   id: string;
   createdAt: string;
   updatedAt: string;
-  name: string;
+  nameUz: string;
+  nameRu: string;
+  nameEn: string;
 }
 
 export interface TravelDesignersType {
@@ -101,7 +103,9 @@ export interface TravelTypesType {
     id: string;
     createdAt: string;
     updatedAt: string;
-    title: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
     images: string;
   }
 
@@ -109,9 +113,13 @@ export interface TravelTypesType {
     id: string;
     createdAt: string;
     updatedAt: string;
-    title: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
     images: string;
-    text: string;
+    textUz: string;
+    textRu: string;
+    textEn: string;
     aboutImage: string;
     articleId: string;
     article: ArticlesType

@@ -142,6 +142,7 @@ const Services = () => {
         dataSource={data?.items || []}
         rowKey="id"
         loading={isLoading}
+        scroll={{ x: "max-content" }}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,

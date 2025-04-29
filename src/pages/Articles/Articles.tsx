@@ -90,9 +90,46 @@ const Articles = () => {
       width: 70,
     },
     {
-      title: "Nomi",
-      dataIndex: "title",
-      key: "title",
+      title: "Nomi (Uz)",
+      dataIndex: "titleUz",
+      key: "titleUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Nomi (Ru)",
+      dataIndex: "titleRu",
+      key: "titleRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    { 
+      title: "Nomi (En)",
+      dataIndex: "titleEn",
+      key: "titleEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Rasm",
@@ -102,7 +139,7 @@ const Articles = () => {
         <img
           src={image}
           alt="Maqola"
-          className="max-w-[100px] h-auto object-cover rounded"
+          className="max-w-[100px] max-h-[150px] h-auto object-cover rounded"
         />
       ),
     },
@@ -156,6 +193,7 @@ const Articles = () => {
           dataSource={data?.items || []}
           rowKey="id"
           loading={isLoading}
+          scroll={{ x: "max-content" }}
           pagination={{
             current: pagination.current,
             pageSize: pagination.pageSize,

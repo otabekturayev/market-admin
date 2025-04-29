@@ -82,14 +82,87 @@ const SubArticles = () => {
       width: 70,
     },
     {
-      title: "Nomi",
-      dataIndex: "title",
-      key: "title",
+      title: "Nomi (Uz)",
+      dataIndex: "titleUz",
+      key: "titleUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
-      title: "Matn",
-      dataIndex: "text",
-      key: "text",
+      title: "Nomi (Ru)",
+      dataIndex: "titleRu",
+      key: "titleRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Nomi (En)",
+      dataIndex: "titleEn",
+      key: "titleEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (Uz)",
+      dataIndex: "textUz",
+      key: "textUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (Ru)",
+      dataIndex: "textRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (En)",
+      dataIndex: "textEn",
+      key: "textEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Maqola",
@@ -101,7 +174,7 @@ const SubArticles = () => {
       dataIndex: "images",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Kichkina maqola" className="max-w-[100px] h-auto object-cover rounded" />
+        <img src={image} alt="Kichkina maqola" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {
@@ -109,7 +182,7 @@ const SubArticles = () => {
       dataIndex: "aboutImage",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="about Kichkina maqola" className="max-w-[100px] h-auto object-cover rounded" />
+        <img src={image} alt="about Kichkina maqola" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {
@@ -160,6 +233,7 @@ const SubArticles = () => {
         dataSource={data?.items || []}
         rowKey="id"
         loading={isLoading}
+        scroll={{ x: "max-content" }}
         pagination={{
           current: pagination.current,
           pageSize: pagination.pageSize,

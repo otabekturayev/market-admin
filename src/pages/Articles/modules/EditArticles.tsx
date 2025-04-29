@@ -5,15 +5,18 @@ import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
+import { ArticlesType } from "../../../types/types";
 
 type FormValues = {
-  name: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
   file: RcFile[];
 };
 
 interface EditArticlesProps {
   onCancel: () => void;
-  data: any;
+  data: ArticlesType | undefined;
   refetch: () => void;
 }
 
@@ -28,7 +31,9 @@ const EditArticles: React.FC<EditArticlesProps> = ({ onCancel, data, refetch }) 
   useEffect(() => {
     if (data) {
       reset({
-        name: data?.title || "",
+        titleUz: data?.titleUz || "",
+        titleRu: data?.titleRu || "",
+        titleEn: data?.titleEn || "",
         file: [],
       });
     }
@@ -52,13 +57,15 @@ const EditArticles: React.FC<EditArticlesProps> = ({ onCancel, data, refetch }) 
     },
   });
 
-  const onSubmit = (formData: FormValues) => {
-    const form = new FormData();
-    form.append("title", formData.name);
-    if (formData.file && formData.file.length > 0) {
-      form.append("images", formData.file[0]);
+  const onSubmit = (data: FormValues) => {
+    const formData = new FormData();
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
+    if (data.file && data.file.length > 0) {
+      formData.append("images", data.file[0]);
     }
-    mutate(form);
+    mutate(formData);
   };
 
   const handleCancel = () => {
@@ -77,17 +84,43 @@ const EditArticles: React.FC<EditArticlesProps> = ({ onCancel, data, refetch }) 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name?.message}
-      >
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
-        />
-      </Form.Item>
+              label="Sarlavha (Uz)"
+              validateStatus={errors.titleUz ? "error" : ""}
+              help={errors.titleUz?.message}
+            >
+              <Controller
+                name="titleUz"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (Uzbek)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Sarlavha (Ru)"
+              validateStatus={errors.titleRu ? "error" : ""}
+              help={errors.titleRu?.message}
+            >
+              <Controller
+                name="titleRu"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (Ruscha)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Sarlavha (En)"
+              validateStatus={errors.titleEn ? "error" : ""}
+              help={errors.titleEn?.message}
+            >
+              <Controller
+                name="titleEn"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (Inglizcha)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+              />
+            </Form.Item>
 
       <Form.Item
         label="Rasm yuklash"

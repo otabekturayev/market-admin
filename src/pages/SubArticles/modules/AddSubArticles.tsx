@@ -9,8 +9,12 @@ import { useFetch } from "../../../hooks/useFetch";
 import { ArticlesType } from "../../../types/types";
 
 type FormValues = {
-  title: string;
-  text: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  textUz: string;
+  textRu: string;
+  textEn: string;
   images: RcFile[];
   aboutImages: RcFile[];
   articleId: string;
@@ -62,8 +66,12 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("text", data.text);
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
+    formData.append("textEn", data.textEn);
+    formData.append("textRu", data.textRu);
+    formData.append("textUz", data.textUz);
     formData.append("articleId", data.articleId);
 
     if (data.images && data.images[0]) {
@@ -89,28 +97,77 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       {/* Title */}
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.title ? "error" : ""}
-        help={errors.title?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
       >
         <Controller
-          name="title"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavhani kiriting (Uz)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
+      >
+        <Controller
+          name="titleRu"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Ru)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
+      >
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (En)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
         />
       </Form.Item>
 
       {/* Text */}
       <Form.Item
-        label="Matn"
-        validateStatus={errors.text ? "error" : ""}
-        help={errors.text?.message}
+        label="Matn (Uz)"
+        validateStatus={errors.textUz ? "error" : ""}
+        help={errors.textUz?.message}
       >
         <Controller
-          name="text"
+          name="textUz"
           control={control}
-          rules={{ required: "Matnni kiriting" }}
+          rules={{ required: "Matnni kiriting (Uz)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Matn (Ru)"
+        validateStatus={errors.textRu ? "error" : ""}
+        help={errors.textRu?.message}
+      >
+        <Controller
+          name="textRu"
+          control={control}
+          rules={{ required: "Matnni kiriting (Ru)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Matn (En)"
+        validateStatus={errors.textEn ? "error" : ""}
+        help={errors.textEn?.message}
+      >
+        <Controller
+          name="textEn"
+          control={control}
+          rules={{ required: "Matnni kiriting (En)" }}
           render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
         />
       </Form.Item>
@@ -210,7 +267,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
               {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
               {data?.items?.map((article: ArticlesType) => (
                 <Select.Option key={article?.id} value={article?.id}>
-                  {article?.title}
+                  {article?.titleUz}
                 </Select.Option>
               ))}
             </Select>

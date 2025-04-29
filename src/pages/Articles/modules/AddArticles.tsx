@@ -7,7 +7,9 @@ import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 
 type FormValues = {
-  name: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
   file: RcFile[];
 };
 
@@ -53,7 +55,9 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("title", data.name);
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
     if (data.file && data.file[0]) {
       formData.append("images", data.file[0]);
     }
@@ -72,15 +76,41 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
       >
         <Controller
-          name="name"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavhani kiriting (Uzbek)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleRu ? "error" : ""}
+        help={errors.titleRu?.message}
+      >
+        <Controller
+          name="titleRu"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Ruscha)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleEn ? "error" : ""}
+        help={errors.titleEn?.message}
+      >
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Inglizcha)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
         />
       </Form.Item>
 
