@@ -9,7 +9,7 @@ import useApiMutation from "../../hooks/useMutation";
 import { toast } from "react-toastify";
 import EditDays from "./modules/EditDays";
 import AddDays from "./modules/AddDays";
-import { DataDaysType, ModulsType } from "../../types/types";
+import { DataDaysType, ModulsType, TravelType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -83,41 +83,175 @@ const Days = () => {
       width: 70,
     },
     {
-      title: "Nomi",
-      dataIndex: "title",
-      key: "title",
+      title: "Nomi (Uz)",
+      dataIndex: "titleUz",
+      key: "titleUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
-      title: "Viloyat",
-      dataIndex: "destination",
-      key: "destination",
+      title: "Nomi (Ru)",
+      dataIndex: "titleRu",
+      key: "titleRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
-      title: "Matn",
-      dataIndex: "text",
-      key: "text",
+      title: "Nomi (En)",
+      dataIndex: "titleEn",
+      key: "titleEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Viloyat (Uz)",
+      dataIndex: "destinationUz",
+      key: "destinationUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Viloyat (Ru)",
+      dataIndex: "destinationRu",
+      key: "destinationRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Viloyat (En)",
+      dataIndex: "destinationEn",
+      key: "destinationEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (Uz)",
+      dataIndex: "textUz",
+      key: "textUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (Ru)",
+      dataIndex: "textRu",
+      key: "textRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Matn (En)",
+      dataIndex: "textEn",
+      key: "textEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Sayohat",
       dataIndex: "travel",
-      render: (travels: any) => <span>{travels?.title}</span>,
+      render: (travels: TravelType) => <span style={{
+        maxWidth: 250,
+        maxHeight: 150,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+      }}>{travels?.titleUz}</span>,
     },
     {
       title: "Latitude",
       dataIndex: "lat",
       key: "lat",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Longitude",
       dataIndex: "long",
       key: "long",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Rasm",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Travel Designer" className="max-w-[100px] h-auto object-cover rounded" />
+        <img src={image} alt="DAys" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {

@@ -5,20 +5,25 @@ import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
+import { TravelDesignersType } from "../../../types/types";
 
 const { TextArea } = Input;
 
 type FormValues = {
-  name: string;
+  nameUz: string;
+  nameRu: string;
+  nameEn: string;
   email: string;
-  about: string;
+  aboutUz: string;
+  aboutRu: string;
+  aboutEn: string;
   file?: RcFile[];
 };
 
 interface EditTravelDesignerProps {
   onCancel: () => void;
   refetch: () => void;
-  data: any;
+  data: TravelDesignersType | undefined;
 }
 
 const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
@@ -33,9 +38,13 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      name: data?.name,
+      nameUz: data?.nameUz,
+      nameRu: data?.nameRu,
+      nameEn: data?.nameEn,
       email: data?.email,
-      about: data?.about,
+      aboutUz: data?.aboutUz,
+      aboutRu: data?.aboutRu,
+      aboutEn: data?.aboutEn,
     },
   });
 
@@ -59,9 +68,13 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("name", data.name);
+    formData.append("nameUz", data.nameUz);
+    formData.append("nameRu", data.nameRu);
+    formData.append("nameEn", data.nameEn);
     formData.append("email", data.email);
-    formData.append("about", data.about);
+    formData.append("aboutUz", data.aboutUz);
+    formData.append("aboutRu", data.aboutRu);
+    formData.append("aboutEn", data.aboutEn);
     if (data.file && data.file[0]) {
       formData.append("file", data.file[0]);
     }
@@ -89,15 +102,45 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Ism"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name?.message}
+        label="Ism (Uz)"
+        validateStatus={errors.nameUz ? "error" : ""}
+        help={errors.nameUz?.message}
       >
         <Controller
-          name="name"
+          name="nameUz"
           control={control}
-          rules={{ required: "Ismni kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Ismingiz" />}
+          rules={{ required: "Ismni kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Ismini kiriting (Uz)" />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Ism (Ru)"
+        validateStatus={errors.nameRu ? "error" : ""}
+        help={errors.nameRu?.message}
+      >
+        <Controller
+          name="nameRu"
+          control={control}
+          rules={{ required: "Ismni kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Ismini kiriting (Ru)" />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Ism (En)"
+        validateStatus={errors.nameEn ? "error" : ""}
+        help={errors.nameEn?.message}
+      >
+        <Controller
+          name="nameEn"
+          control={control}
+          rules={{ required: "Ismni kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Ismini kiriting (En)" />
+          )}
         />
       </Form.Item>
 
@@ -121,19 +164,57 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
       </Form.Item>
 
       <Form.Item
-        label="Haqingizda"
-        validateStatus={errors.about ? "error" : ""}
-        help={errors.about?.message}
+        label="Haqingizda (Uz)"
+        validateStatus={errors.aboutUz ? "error" : ""}
+        help={errors.aboutUz?.message}
       >
         <Controller
-          name="about"
+          name="aboutUz"
           control={control}
-          rules={{ required: "Maʼlumot kiriting" }}
+          rules={{ required: "Maʼlumot kiriting (Uz)" }}
           render={({ field }) => (
             <TextArea
               {...field}
               rows={4}
-              placeholder="O'zingiz haqida"
+              placeholder="Maʼlumot kiriting (Uz)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Haqingizda (Ru)"
+        validateStatus={errors.aboutRu ? "error" : ""}
+        help={errors.aboutRu?.message}
+      >
+        <Controller
+          name="aboutRu"
+          control={control}
+          rules={{ required: "Maʼlumot kiriting (Ru)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Maʼlumot kiriting (Ru)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Haqingizda (En)"
+        validateStatus={errors.aboutEn ? "error" : ""}
+        help={errors.aboutEn?.message}
+      >
+        <Controller
+          name="aboutEn"
+          control={control}
+          rules={{ required: "Maʼlumot kiriting (En)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Maʼlumot kiriting (En)"
               style={{ resize: "none", height: "100px" }}
             />
           )}

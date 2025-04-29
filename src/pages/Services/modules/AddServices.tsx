@@ -9,7 +9,9 @@ import { LevelsType } from "../../../types/types";
 const { Option } = Select;
 
 type FormValues = {
-  title: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
   levelId: string;
 };
 
@@ -62,15 +64,41 @@ const AddServices: React.FC<AddServicesProps> = ({ onCancel, refetch }) => {
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.title ? "error" : ""}
-        help={errors.title?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
       >
         <Controller
-          name="title"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavha kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavha kiriting (Uz)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleRu ? "error" : ""}
+        help={errors.titleRu?.message}
+      >
+        <Controller
+          name="titleRu"
+          control={control}
+          rules={{ required: "Sarlavha kiriting (Ru)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleEn ? "error" : ""}
+        help={errors.titleEn?.message}
+      >
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavha kiriting (En)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
         />
       </Form.Item>
 
@@ -87,7 +115,7 @@ const AddServices: React.FC<AddServicesProps> = ({ onCancel, refetch }) => {
             <Select {...field} placeholder="Darajani tanlang">
               {data?.items?.map((opt: LevelsType) => (
                 <Option key={opt.id} value={opt.id}>
-                  {opt.name}
+                  {opt.nameUz}
                 </Option>
               ))}
             </Select>

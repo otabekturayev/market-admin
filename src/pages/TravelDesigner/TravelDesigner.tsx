@@ -84,9 +84,46 @@ const TravelDesigners = () => {
       width: 70,
     },
     {
-      title: "Ismi",
-      dataIndex: "name",
-      key: "name",
+      title: "Ismi (Uz)",
+      dataIndex: "nameUz",
+      key: "nameUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Ismi (Ru)",
+      dataIndex: "nameRu",
+      key: "nameRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Ismi (En)",
+      dataIndex: "nameEn",
+      key: "nameEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Email",
@@ -94,16 +131,53 @@ const TravelDesigners = () => {
       key: "email",
     },
     {
-      title: "Haqida",
-      dataIndex: "about",
-      key: "about",
+      title: "Haqida (Uz)",
+      dataIndex: "aboutUz",
+      key: "aboutUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Haqida (Ru)",
+      dataIndex: "aboutRu",
+      key: "aboutRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Haqida (En)",
+      dataIndex: "aboutEn",
+      key: "aboutEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Rasm",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Travel Designer" className="max-w-[100px] h-auto object-cover rounded" />
+        <img src={image} alt="Travel Designer" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {

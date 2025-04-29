@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import UniversalModal from "../../components/UniversalModal";
 import EditTravel from "./modules/EditTravel";
 import AddTravel from "./modules/AddTravel";
-import { DataTravelType, ModulsType } from "../../types/types";
+import { DataTravelType, LevelsType, ModulsType, TravelDesignersType, TravelTypesType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -88,47 +88,154 @@ const Travel = () => {
       width: 70,
     },
     {
-      title: "Nomi",
-      dataIndex: "title",
-      key: "title",
+      title: "Nomi (Uz)",
+      dataIndex: "titleUz",
+      key: "titleUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
-      title: "Tavsif",
-      dataIndex: "description",
-      key: "description",
+      title: "Nomi (Ru)",
+      dataIndex: "titleRu",
+      key: "titleRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Nomi (En)",
+      dataIndex: "titleEn",
+      key: "titleEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (Uz)",
+      dataIndex: "descriptionUz",
+      key: "descriptionUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (Ru)",
+      dataIndex: "descriptionRu",
+      key: "descriptionRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (En)",
+      dataIndex: "descriptionEn",
+      key: "descriptionEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Kunlar",
       dataIndex: "days",
       key: "days",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Narxi (so'm)",
       dataIndex: "price",
       key: "price",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
     },
     {
       title: "Sayohat dizayneri",
       dataIndex: "travelDesigner",
-      render: (record: any) => <span>{record?.name}</span>,
+      render: (record: TravelDesignersType) => <span style={{
+        maxWidth: 250,
+        maxHeight: 150,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+      }}>{record?.nameUz}</span>,
     },
     {
       title: "Sayohat turi",
       dataIndex: "travelType",
-      render: (record: any) => <span>{record?.title}</span>,
+      render: (record: TravelTypesType) => <span style={{
+        maxWidth: 250,
+        maxHeight: 150,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+      }}>{record?.titleUz}</span>,
     },
     {
       title: "Daraja",
       dataIndex: "levels",
       key: "level",
-      render: (record: any) => <span>{record?.[0]?.name}</span>,
+      render: (record: LevelsType[]) => <span style={{
+        maxWidth: 250,
+        maxHeight: 150,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+      }}>{record?.[0]?.nameUz}</span>,
     },
     {
       title: "Rasm",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Travel" className="max-w-[100px] h-auto object-cover rounded" />
+        <img src={image} alt="Travel" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {

@@ -12,9 +12,15 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 type FormValues = {
-  name: string;
-  destination: string;
-  text: string;
+  nameUz: string;
+  nameRu: string;
+  nameEn: string;
+  destinationUz: string;
+  destinationRu: string;
+  destinationEn: string;
+  textUz: string;
+  textRu: string;
+  textEn: string;
   travelId: string;
   latitude: string;
   longitude: string;
@@ -43,9 +49,15 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
   useEffect(() => {
     if (data) {
       reset({
-        name: data?.title || "",
-        destination: data?.destination || "",
-        text: data?.text || "",
+        nameUz: data?.titleUz || "",
+        nameRu: data?.titleRu || "",
+        nameEn: data?.titleEn || "",
+        destinationUz: data?.destinationUz || "",
+        destinationRu: data?.destinationRu || "",
+        destinationEn: data?.destinationEn || "",
+        textUz: data?.textUz || "",
+        textRu: data?.textRu || "",
+        textEn: data?.textEn || "",
         travelId: data?.travelId || "",
         latitude: data?.lat || "",
         longitude: data?.long || "",
@@ -61,7 +73,7 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
       toast.success("Kun muvaffaqiyatli yangilandi");
       reset();
       onCancel();
-      refetch();  
+      refetch();
     },
 
     onError: (error: any) => {
@@ -74,7 +86,11 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
   });
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
+    const isAllowed = [
+      "image/png",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
     if (!isAllowed) {
       toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
     }
@@ -83,9 +99,15 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
 
   const onSubmit = (formData: FormValues) => {
     const form = new FormData();
-    form.append("title", formData.name);
-    form.append("destination", formData.destination);
-    form.append("text", formData.text);
+    form.append("titleUz", formData.nameUz);
+    form.append("titleRu", formData.nameRu);
+    form.append("titleEn", formData.nameEn);
+    form.append("destinationUz", formData.destinationUz);
+    form.append("destinationRu", formData.destinationRu);
+    form.append("destinationEn", formData.destinationEn);
+    form.append("textUz", formData.textUz);
+    form.append("textRu", formData.textRu);
+    form.append("textEn", formData.textEn);
     form.append("travelId", formData.travelId);
     form.append("lat", formData.latitude);
     form.append("long", formData.longitude);
@@ -102,46 +124,154 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
-      {/* Sarlavha */}
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.name ? "error" : ""}
-        help={errors.name?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.nameUz ? "error" : ""}
+        help={errors.nameUz?.message}
       >
         <Controller
-          name="name"
+          name="nameUz"
           control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavhani kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Uz)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.nameRu ? "error" : ""}
+        help={errors.nameRu?.message}
+      >
+        <Controller
+          name="nameRu"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Ru)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.nameEn ? "error" : ""}
+        help={errors.nameEn?.message}
+      >
+        <Controller
+          name="nameEn"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (En)" />
+          )}
         />
       </Form.Item>
 
       {/* Destination */}
       <Form.Item
-        label="Viloyat"
-        validateStatus={errors.destination ? "error" : ""}
-        help={errors.destination?.message}
+        label="Viloyat (Uz)"
+        validateStatus={errors.destinationUz ? "error" : ""}
+        help={errors.destinationUz?.message}
       >
         <Controller
-          name="destination"
+          name="destinationUz"
           control={control}
-          rules={{ required: "Viloyatni kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Viloyat" />}
+          rules={{ required: "Viloyatni kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Viloyat (Uz)" />
+          )}
         />
       </Form.Item>
 
-      {/* Matn */}
       <Form.Item
-        label="Matn"
-        validateStatus={errors.text ? "error" : ""}
-        help={errors.text?.message}
+        label="Viloyat (Ru)"
+        validateStatus={errors.destinationRu ? "error" : ""}
+        help={errors.destinationRu?.message}
       >
         <Controller
-          name="text"
+          name="destinationRu"
           control={control}
-          rules={{ required: "Matnni kiriting" }}
+          rules={{ required: "Viloyatni kiriting (Ru)" }}
           render={({ field }) => (
-            <TextArea {...field} style={{ height: "100px", resize: "none" }} placeholder="Matn kiriting" rows={4} />
+            <Input {...field} placeholder="Viloyat (Ru)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Viloyat (En)"
+        validateStatus={errors.destinationEn ? "error" : ""}
+        help={errors.destinationEn?.message}
+      >
+        <Controller
+          name="destinationEn"
+          control={control}
+          rules={{ required: "Viloyatni kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Viloyat (En)" />
+          )}
+        />
+      </Form.Item>
+
+      {/* Text */}
+      <Form.Item
+        label="Matn (Uz)"
+        validateStatus={errors.textUz ? "error" : ""}
+        help={errors.textUz?.message}
+      >
+        <Controller
+          name="textUz"
+          control={control}
+          rules={{ required: "Matnni kiriting (Uz)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              style={{ height: "100px", resize: "none" }}
+              placeholder="Matn kiriting (Uz)"
+              rows={4}
+            />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Matn (Ru)"
+        validateStatus={errors.textRu ? "error" : ""}
+        help={errors.textRu?.message}
+      >
+        <Controller
+          name="textRu"
+          control={control}
+          rules={{ required: "Matnni kiriting (Ru)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              style={{ height: "100px", resize: "none" }}
+              placeholder="Matn kiriting (Ru)"
+              rows={4}
+            />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Matn (En)"
+        validateStatus={errors.textEn ? "error" : ""}
+        help={errors.textEn?.message}
+      >
+        <Controller
+          name="textEn"
+          control={control}
+          rules={{ required: "Matnni kiriting (En)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              style={{ height: "100px", resize: "none" }}
+              placeholder="Matn kiriting (En)"
+              rows={4}
+            />
           )}
         />
       </Form.Item>
@@ -160,7 +290,7 @@ const EditDays: React.FC<EditDaysProps> = ({ onCancel, data, refetch }) => {
             <Select {...field} placeholder="Sayohatni tanlang">
               {travels?.items?.map((opt: TravelType) => (
                 <Option key={opt?.id} value={opt?.id}>
-                  {opt?.title}
+                  {opt?.titleUz}
                 </Option>
               ))}
             </Select>

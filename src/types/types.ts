@@ -13,17 +13,23 @@ export interface TravelDesignersType {
   id: string;
   createdAt: string;
   updatedAt: string;
-  name: string;
+  nameUz: string;
+  nameRu: string;
+  nameEn: string;
   email: string;
   image: string;
-  about: string;
+  aboutUz: string;
+  aboutRu: string;
+  aboutEn: string;
 }
 
 export interface TravelTypesType {
     id: string;
     createdAt: string;
     updatedAt: string;
-    title: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
     image: string;
   };
   export interface DaysType{
@@ -43,10 +49,14 @@ export interface TravelTypesType {
     createdAt: string;
     updatedAt: string;
     image: string;
-    title: string;
-    description: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
+    descriptionUz: string;
+    descriptionRu: string;
+    descriptionEn: string;
     days: number;
-    price: string | number;
+    price: number | undefined;
     travelTypeId: string;
   };
 
@@ -55,8 +65,12 @@ export interface TravelTypesType {
     createdAt: string;
     updatedAt: string;
     image: string;
-    title: string;
-    text: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
+    textUz: string;
+    textRu: string;
+    textEn: string;
   };
 
   export interface AttractionsDataType extends AttractionsType {
@@ -67,10 +81,16 @@ export interface TravelTypesType {
     id: string;
     createdAt: string;
     updatedAt: string;
-    destination: string;
-    title: string;
+    destinationUz: string;
+    destinationRu: string;
+    destinationEn: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
     image: string;
-    text: string;
+    textUz: string;
+    textRu: string;
+    textEn: string;
     long: number | string;
     lat: number | string;
     travelId: string;
@@ -92,7 +112,9 @@ export interface TravelTypesType {
     id: string;
     createdAt: string;
     updatedAt: string;
-    title: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string
   }
 
   export interface DataServicesType extends ServicesType{

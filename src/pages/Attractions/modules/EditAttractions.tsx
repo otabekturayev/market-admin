@@ -12,8 +12,12 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 type FormValues = {
-  title: string;
-  text: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  textUz: string;
+  textRu: string;
+  textEn: string;
   travelId: string;
   file: RcFile[];
 };
@@ -46,8 +50,12 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
   useEffect(() => {
     if (data) {
       reset({
-        title: data?.title || "",
-        text: data?.text || "",
+        titleUz: data?.titleUz || "",
+        titleRu: data?.titleRu || "",
+        titleEn: data?.titleEn || "",
+        textUz: data?.textUz || "",
+        textRu: data?.textRu || "",
+        textEn: data?.textEn || "",
         travelId: data?.travel?.id || "",
         file: [],
       });
@@ -74,8 +82,12 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
 
   const onSubmit = (formData: FormValues) => {
     const form = new FormData();
-    form.append("title", formData.title);
-    form.append("text", formData.text);
+    form.append("titleUz", formData.titleUz);
+    form.append("titleRu", formData.titleRu);
+    form.append("titleEn", formData.titleEn);
+    form.append("textUz", formData.textUz);
+    form.append("textRu", formData.textRu);
+    form.append("textEn", formData.textEn);
     form.append("travelId", formData.travelId);
     if (formData.file && formData.file.length > 0) {
       form.append("image", formData.file[0]);
@@ -103,37 +115,88 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.title ? "error" : ""}
-        help={errors.title?.message}
-      >
-        <Controller
-          name="title"
-          control={control}
-          rules={{ required: "Sarlavha kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
-        />
-      </Form.Item>
+              label="Sarlavha (Uz)"
+              validateStatus={errors.titleUz ? "error" : ""}
+              help={errors.titleUz?.message}
+            >
+              <Controller
+                name="titleUz"
+                control={control}
+                rules={{ required: "Sarlavha kiriting (Uz)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Sarlavha (Ru)"
+              validateStatus={errors.titleRu ? "error" : ""}
+              help={errors.titleRu?.message}
+            >
+              <Controller
+                name="titleRu"
+                control={control}
+                rules={{ required: "Sarlavha kiriting (Ru)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Sarlavha (En)"
+              validateStatus={errors.titleEn ? "error" : ""}
+              help={errors.titleEn?.message}
+            >
+              <Controller
+                name="titleEn"
+                control={control}
+                rules={{ required: "Sarlavha kiriting (En)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+              />
+            </Form.Item>
 
       <Form.Item
-        label="Matn"
-        validateStatus={errors.text ? "error" : ""}
-        help={errors.text?.message}
-      >
-        <Controller
-          name="text"
-          control={control}
-          rules={{ required: "Matn kiriting" }}
-          render={({ field }) => (
-            <TextArea
-              {...field}
-              rows={4}
-              placeholder="Matn"
-              style={{ height: "100px", resize: "none" }}
-            />
-          )}
-        />
-      </Form.Item>
+              label="Matn (Uz)"
+              validateStatus={errors.textUz ? "error" : ""}
+              help={errors.textUz?.message}
+            >
+              <Controller
+                name="textUz"
+                control={control}
+                rules={{ required: "Matn kiriting (Uz)" }}
+                render={({ field }) => (
+                  <TextArea {...field} rows={4} placeholder="Matn (Uz)" style={{ height: "100px", resize: "none" }} />
+                )}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Matn (Ru)"
+              validateStatus={errors.textRu ? "error" : ""}
+              help={errors.textRu?.message}
+            >
+              <Controller
+                name="textRu"
+                control={control}
+                rules={{ required: "Matn kiriting (Ru)" }}
+                render={({ field }) => (
+                  <TextArea {...field} rows={4} placeholder="Matn (Ru)" style={{ height: "100px", resize: "none" }} />
+                )}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Matn (En)"
+              validateStatus={errors.textEn ? "error" : ""}
+              help={errors.textEn?.message}
+            >
+              <Controller
+                name="textEn"
+                control={control}
+                rules={{ required: "Matn kiriting (En)" }}
+                render={({ field }) => (
+                  <TextArea {...field} rows={4} placeholder="Matn (En)" style={{ height: "100px", resize: "none" }} />
+                )}
+              />
+            </Form.Item>
 
       <Form.Item
         label="Sayohatni tanlang"
@@ -148,7 +211,7 @@ const EditAttractions: React.FC<EditAttractionsProps> = ({
             <Select {...field} placeholder="Sayohatni tanlang">
               {travels?.items?.map((opt: DataTravelType) => (
                 <Option key={opt?.id} value={opt?.id}>
-                  {opt?.title}
+                  {opt?.titleUz}
                 </Option>
               ))}
             </Select>

@@ -11,8 +11,12 @@ import { LevelsType, TravelDesignersType, TravelTypesType } from "../../../types
 const { TextArea } = Input;
 
 type FormValues = {
-  title: string;
-  description: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  descriptionUz: string;
+  descriptionRu: string;
+  descriptionEn: string;
   days: number;
   price: number;
   travelDesignerId: string;
@@ -69,8 +73,12 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
+    formData.append("descriptionUz", data.descriptionUz);
+    formData.append("descriptionRu", data.descriptionRu);
+    formData.append("descriptionEn", data.descriptionEn);
     formData.append("days", String(data.days));
     formData.append("price", String(data.price));
     formData.append("travelDesignerId", data.travelDesignerId);
@@ -79,7 +87,6 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
     if (data.file?.[0]) {
       formData.append("file", data.file[0]);
     }
-
     mutate(formData);
     reset()
   };
@@ -99,21 +106,55 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
-      <Form.Item label="Sarlavha" validateStatus={errors.title ? "error" : ""} help={errors.title?.message}>
+      <Form.Item label="Sarlavha (Uz)" validateStatus={errors.titleUz ? "error" : ""} help={errors.titleUz?.message}>
         <Controller
-          name="title"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavhani kiriting (Uz)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+        />
+      </Form.Item>
+      <Form.Item label="Sarlavha (Ru)" validateStatus={errors.titleRu ? "error" : ""} help={errors.titleRu?.message}>
+        <Controller
+          name="titleRu"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (Ru)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+        />
+      </Form.Item>
+      <Form.Item label="Sarlavha (En)" validateStatus={errors.titleEn ? "error" : ""} help={errors.titleEn?.message}>
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavhani kiriting (En)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
         />
       </Form.Item>
 
-      <Form.Item label="Tavsif" validateStatus={errors.description ? "error" : ""} help={errors.description?.message}>
+      <Form.Item label="Tavsif (Uz)" validateStatus={errors.descriptionUz ? "error" : ""} help={errors.descriptionUz?.message}>
         <Controller
-          name="description"
+          name="descriptionUz"
           control={control}
-          rules={{ required: "Tavsif kiriting" }}
-          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif" style={{ resize: 'none', height: '100px'}}/>}
+          rules={{ required: "Tavsif kiriting (Uz)" }}
+          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Uz)" style={{ resize: 'none', height: '100px'}}/>}
+        />
+      </Form.Item>
+
+      <Form.Item label="Tavsif (Ru)" validateStatus={errors.descriptionRu ? "error" : ""} help={errors.descriptionRu?.message}>
+        <Controller
+          name="descriptionRu"
+          control={control}
+          rules={{ required: "Tavsif kiriting (Ru)" }}
+          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Ru)" style={{ resize: 'none', height: '100px'}}/>}
+        />
+      </Form.Item>
+
+      <Form.Item label="Tavsif (En)" validateStatus={errors.descriptionEn ? "error" : ""} help={errors.descriptionEn?.message}>
+        <Controller
+          name="descriptionEn"
+          control={control}
+          rules={{ required: "Tavsif kiriting (En)" }}
+          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (En)" style={{ resize: 'none', height: '100px'}}/>}
         />
       </Form.Item>
 
@@ -144,7 +185,7 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
             <Select {...field} placeholder="Sayohat dizaynerini tanlang">
               {travelDesignersData?.items?.map((level: TravelDesignersType) => (
                 <Select.Option key={level?.id} value={level?.id}>
-                  {level?.name}
+                  {level?.nameUz}
                 </Select.Option>
               ))}
             </Select>
@@ -161,7 +202,7 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
             <Select {...field} placeholder="Sayohat turi tanlang">
               {travelTypeData?.items?.map((level: TravelTypesType) => (
                 <Select.Option key={level?.id} value={level?.id}>
-                  {level?.title}
+                  {level?.titleUz}
                 </Select.Option>
               ))}
             </Select>
@@ -178,7 +219,7 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
             <Select {...field} placeholder="Daraja tanlang">
               {levelData?.items?.map((level: LevelsType) => (
                 <Select.Option key={level?.id} value={level?.id}>
-                  {level?.name}
+                  {level?.nameUz}
                 </Select.Option>
               ))}
             </Select>

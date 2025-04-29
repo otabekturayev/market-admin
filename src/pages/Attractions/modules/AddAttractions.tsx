@@ -12,8 +12,12 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 type FormValues = {
-  title: string;
-  text: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  textUz: string;
+  textRu: string;
+  textEn: string;
   travelId: string;
   file: RcFile[];
 };
@@ -65,8 +69,12 @@ const AddAttractions: React.FC<AddAttractionsProps> = ({
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("text", data.text);
+    formData.append("titleUz", data.titleUz);
+    formData.append("titleRu", data.titleRu);
+    formData.append("titleEn", data.titleEn);
+    formData.append("textUz", data.textUz);
+    formData.append("textRu", data.textRu);
+    formData.append("textEn", data.textEn);
     formData.append("travelId", data.travelId);
     if (data.file && data.file[0]) {
       formData.append("image", data.file[0]);
@@ -86,29 +94,85 @@ const AddAttractions: React.FC<AddAttractionsProps> = ({
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       <Form.Item
-        label="Sarlavha"
-        validateStatus={errors.title ? "error" : ""}
-        help={errors.title?.message}
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
       >
         <Controller
-          name="title"
+          name="titleUz"
           control={control}
-          rules={{ required: "Sarlavha kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
+          rules={{ required: "Sarlavha kiriting (Uz)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
         />
       </Form.Item>
 
       <Form.Item
-        label="Matn"
-        validateStatus={errors.text ? "error" : ""}
-        help={errors.text?.message}
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleRu ? "error" : ""}
+        help={errors.titleRu?.message}
       >
         <Controller
-          name="text"
+          name="titleRu"
           control={control}
-          rules={{ required: "Matn kiriting" }}
+          rules={{ required: "Sarlavha kiriting (Ru)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleEn ? "error" : ""}
+        help={errors.titleEn?.message}
+      >
+        <Controller
+          name="titleEn"
+          control={control}
+          rules={{ required: "Sarlavha kiriting (En)" }}
+          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Matn (Uz)"
+        validateStatus={errors.textUz ? "error" : ""}
+        help={errors.textUz?.message}
+      >
+        <Controller
+          name="textUz"
+          control={control}
+          rules={{ required: "Matn kiriting (Uz)" }}
           render={({ field }) => (
-            <TextArea {...field} rows={4} placeholder="Matn" style={{ height: "100px", resize: "none" }} />
+            <TextArea {...field} rows={4} placeholder="Matn (Uz)" style={{ height: "100px", resize: "none" }} />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Matn (Ru)"
+        validateStatus={errors.textRu ? "error" : ""}
+        help={errors.textRu?.message}
+      >
+        <Controller
+          name="textRu"
+          control={control}
+          rules={{ required: "Matn kiriting (Ru)" }}
+          render={({ field }) => (
+            <TextArea {...field} rows={4} placeholder="Matn (Ru)" style={{ height: "100px", resize: "none" }} />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Matn (En)"
+        validateStatus={errors.textEn ? "error" : ""}
+        help={errors.textEn?.message}
+      >
+        <Controller
+          name="textEn"
+          control={control}
+          rules={{ required: "Matn kiriting (En)" }}
+          render={({ field }) => (
+            <TextArea {...field} rows={4} placeholder="Matn (En)" style={{ height: "100px", resize: "none" }} />
           )}
         />
       </Form.Item>
@@ -126,7 +190,7 @@ const AddAttractions: React.FC<AddAttractionsProps> = ({
             <Select {...field} placeholder="Sayohatni tanlang">
               {data?.items?.map((opt: DataTravelType) => (
                 <Option key={opt?.id} value={opt?.id}>
-                  {opt?.title}
+                  {opt?.titleUz}
                 </Option>
               ))}
             </Select>

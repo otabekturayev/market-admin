@@ -13,20 +13,22 @@ import { toast } from "react-toastify";
 import UniversalModal from "../../components/UniversalModal";
 import EditServices from "./modules/EditServices";
 import AddServices from "./modules/AddServices";
-import { DataServicesType, ModulsType } from "../../types/types";
-
+import { DataServicesType, LevelsType, ModulsType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-
 const Services = () => {
   const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [servicesSingleData, setServicesSingleData] = useState<DataServicesType>();
+  const [servicesSingleData, setServicesSingleData] =
+    useState<DataServicesType>();
   const [formType, setFormType] = useState<ModulsType>("");
-  const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
+  const [pagination, setPagination] = useState<{
+    current: number;
+    pageSize: number;
+  }>({
     current: 1,
     pageSize: 10,
   });
@@ -38,7 +40,7 @@ const Services = () => {
       params: {
         page: pagination.current,
         limit: pagination.pageSize,
-        title: search || null
+        title: search || null,
       },
     },
   });
@@ -89,14 +91,71 @@ const Services = () => {
       width: 70,
     },
     {
-      title: "Nomi",
-      dataIndex: "title",
-      key: "title",
+      title: "Nomi (Uz)",
+      dataIndex: "titleUz",
+      key: "titleUz",
+      render: (text: string) => (
+        <div
+          style={{
+            maxWidth: 250,
+            maxHeight: 150,
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          {text}
+        </div>
+      ),
+    },
+    {
+      title: "Nomi (Ru)",
+      dataIndex: "titleRu",
+      key: "titleRu",
+      render: (text: string) => (
+        <div
+          style={{
+            maxWidth: 250,
+            maxHeight: 150,
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          {text}
+        </div>
+      ),
+    },
+    {
+      title: "Nomi (En)",
+      dataIndex: "titleEn",
+      key: "titleEn",
+      render: (text: string) => (
+        <div
+          style={{
+            maxWidth: 250,
+            maxHeight: 150,
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          {text}
+        </div>
+      ),
     },
     {
       title: "Daraja",
       dataIndex: "levels",
-      render: (record: any) => <span>{record?.[0]?.name}</span>
+      render: (record: LevelsType[]) => (
+        <span
+          style={{
+            maxWidth: 250,
+            maxHeight: 150,
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          {record?.[0]?.nameUz}
+        </span>
+      ),
     },
     {
       title: "Harakatlar",
@@ -148,7 +207,7 @@ const Services = () => {
           pageSize: pagination.pageSize,
           total: data?.total || 0, // agar backend totalni jo'natsa
           showSizeChanger: true,
-          pageSizeOptions: ['10', '20', '50'],
+          pageSizeOptions: ["10", "20", "50"],
           onChange: (page, pageSize) => {
             setPagination({ current: page, pageSize });
           },

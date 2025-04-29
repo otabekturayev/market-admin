@@ -6,13 +6,17 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
-import { LevelsType, TravelDesignersType, TravelTypesType } from "../../../types/types";
+import { DataTravelType, LevelsType, TravelDesignersType, TravelTypesType } from "../../../types/types";
 
 const { TextArea } = Input;
 
 type FormValues = {
-  title: string;
-  description: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  descriptionUz: string;
+  descriptionRu: string;
+  descriptionEn: string;
   days: number;
   price: number;
   travelDesignerId: string;
@@ -24,7 +28,7 @@ type FormValues = {
 interface EditTravelProps {
   onCancel: () => void;
   refetch: () => void;
-  data: any;
+  data: DataTravelType | undefined;
 }
 
 const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
@@ -38,8 +42,12 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
   useEffect(() => {
     if (data) {
       reset({
-        title: data.title,
-        description: data.description,
+        titleUz: data.titleUz,
+        titleRu: data.titleRu,
+        titleEn: data.titleEn,
+        descriptionUz: data.descriptionUz,
+        descriptionRu: data.descriptionRu,
+        descriptionEn: data.descriptionEn,
         days: data.days,
         price: data.price,
         travelDesignerId: data.travelDesigner?.id,
@@ -85,8 +93,12 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
 
   const onSubmit = (formDataValues: FormValues) => {
     const formData = new FormData();
-    formData.append("title", formDataValues.title);
-    formData.append("description", formDataValues.description);
+    formData.append("titleUz", formDataValues.titleUz);
+    formData.append("titleRu", formDataValues.titleRu);
+    formData.append("titleEn", formDataValues.titleEn);
+    formData.append("descriptionUz", formDataValues.descriptionUz);
+    formData.append("descriptionRu", formDataValues.descriptionRu);
+    formData.append("descriptionEn", formDataValues.descriptionEn);
     formData.append("days", String(formDataValues.days));
     formData.append("price", String(formDataValues.price));
     formData.append("travelDesignerId", formDataValues.travelDesignerId);
@@ -114,23 +126,57 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
-      <Form.Item label="Sarlavha" validateStatus={errors.title ? "error" : ""} help={errors.title?.message}>
-        <Controller
-          name="title"
-          control={control}
-          rules={{ required: "Sarlavhani kiriting" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha" />}
-        />
-      </Form.Item>
+      <Form.Item label="Sarlavha (Uz)" validateStatus={errors.titleUz ? "error" : ""} help={errors.titleUz?.message}>
+              <Controller
+                name="titleUz"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (Uz)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+              />
+            </Form.Item>
+            <Form.Item label="Sarlavha (Ru)" validateStatus={errors.titleRu ? "error" : ""} help={errors.titleRu?.message}>
+              <Controller
+                name="titleRu"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (Ru)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+              />
+            </Form.Item>
+            <Form.Item label="Sarlavha (En)" validateStatus={errors.titleEn ? "error" : ""} help={errors.titleEn?.message}>
+              <Controller
+                name="titleEn"
+                control={control}
+                rules={{ required: "Sarlavhani kiriting (En)" }}
+                render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+              />
+            </Form.Item>
 
-      <Form.Item label="Tavsif" validateStatus={errors.description ? "error" : ""} help={errors.description?.message}>
-        <Controller
-          name="description"
-          control={control}
-          rules={{ required: "Tavsif kiriting" }}
-          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif" style={{ resize: 'none', height: '100px'}} />}
-        />
-      </Form.Item>
+      <Form.Item label="Tavsif (Uz)" validateStatus={errors.descriptionUz ? "error" : ""} help={errors.descriptionUz?.message}>
+              <Controller
+                name="descriptionUz"
+                control={control}
+                rules={{ required: "Tavsif kiriting (Uz)" }}
+                render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Uz)" style={{ resize: 'none', height: '100px'}}/>}
+              />
+            </Form.Item>
+      
+            <Form.Item label="Tavsif (Ru)" validateStatus={errors.descriptionRu ? "error" : ""} help={errors.descriptionRu?.message}>
+              <Controller
+                name="descriptionRu"
+                control={control}
+                rules={{ required: "Tavsif kiriting (Ru)" }}
+                render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Ru)" style={{ resize: 'none', height: '100px'}}/>}
+              />
+            </Form.Item>
+      
+            <Form.Item label="Tavsif (En)" validateStatus={errors.descriptionEn ? "error" : ""} help={errors.descriptionEn?.message}>
+              <Controller
+                name="descriptionEn"
+                control={control}
+                rules={{ required: "Tavsif kiriting (En)" }}
+                render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (En)" style={{ resize: 'none', height: '100px'}}/>}
+              />
+            </Form.Item>
 
       <Form.Item label="Kunlar soni" validateStatus={errors.days ? "error" : ""} help={errors.days?.message}>
         <Controller
@@ -159,7 +205,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
             <Select {...field} placeholder="Sayohat dizayneri tanlang">
               {travelDesignersData?.items?.map((designer: TravelDesignersType) => (
                 <Select.Option key={designer?.id} value={designer?.id}>
-                  {designer?.name}
+                  {designer?.nameUz}
                 </Select.Option>
               ))}
             </Select>
@@ -176,7 +222,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
                   <Select {...field} placeholder="Sayohat turi tanlang">
                     {travelTypeData?.items?.map((level: TravelTypesType) => (
                       <Select.Option key={level?.id} value={level?.id}>
-                        {level?.title}
+                        {level?.titleUz}
                       </Select.Option>
                     ))}
                   </Select>
@@ -193,7 +239,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
             <Select {...field} placeholder="Daraja tanlang">
               {levelData?.items?.map((level: LevelsType) => (
                 <Select.Option key={level?.id} value={level?.id}>
-                  {level?.name}
+                  {level?.nameUz}
                 </Select.Option>
               ))}
             </Select>
