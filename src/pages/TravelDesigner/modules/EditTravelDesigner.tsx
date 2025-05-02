@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Form, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -36,17 +36,7 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      nameUz: data?.nameUz,
-      nameRu: data?.nameRu,
-      nameEn: data?.nameEn,
-      email: data?.email,
-      aboutUz: data?.aboutUz,
-      aboutRu: data?.aboutRu,
-      aboutEn: data?.aboutEn,
-    },
-  });
+  } = useForm<FormValues>();
 
   const { mutate, isLoading } = useApiMutation({
     url: `/travel-designers/${data?.id}`,
@@ -65,6 +55,18 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
       }
     },
   });
+
+  useEffect(() => {
+    reset({
+      nameUz: data?.nameUz,
+      nameRu: data?.nameRu,
+      nameEn: data?.nameEn,
+      email: data?.email,
+      aboutUz: data?.aboutUz,
+      aboutRu: data?.aboutRu,
+      aboutEn: data?.aboutEn,
+    });
+  }, [data]);
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();

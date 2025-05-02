@@ -129,7 +129,7 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="descriptionUz"
           control={control}
           rules={{ required: "Tavsifni kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (Uz)" />}
+          render={({ field }) => <Input.TextArea {...field} placeholder="Tavsif (Uz)" style={{ height: "100px", resize: "none" }} />}
         />
       </Form.Item>
 
@@ -142,7 +142,7 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="descriptionRu"
           control={control}
           rules={{ required: "Tavsifni kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (Ru)" />}
+          render={({ field }) => <Input.TextArea {...field} placeholder="Tavsif (Ru)" style={{ height: "100px", resize: "none" }}/>}
         />
       </Form.Item>
 
@@ -155,7 +155,7 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="descriptionEn"
           control={control}
           rules={{ required: "Tavsifni kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (En)" />}
+          render={({ field }) => <Input.TextArea {...field} placeholder="Tavsif (En)" style={{ height: "100px", resize: "none" }}/>}
         />
       </Form.Item>
 
