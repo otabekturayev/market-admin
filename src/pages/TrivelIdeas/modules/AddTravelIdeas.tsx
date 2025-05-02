@@ -6,26 +6,32 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
-import { ArticlesType } from "../../../types/types";
+import { SubTrivelIdeasType } from "../../../types/types";
 
 type FormValues = {
   titleUz: string;
   titleRu: string;
   titleEn: string;
-  textUz: string;
-  textRu: string;
-  textEn: string;
-  images: RcFile[];
-  aboutImages: RcFile[];
-  articleId: string;
+  descriptionUz: string;
+  descriptionRu: string;
+  descriptionEn: string;
+  subTitleUz: string;
+  subTitleRu: string;
+  subTitleEn: string;
+  subDescriptionUz: string;
+  subDescriptionRu: string;
+  subDescriptionEn: string;
+  image: RcFile[];
+  subImage: RcFile[];
+  subTravelIdeasId: string;
 };
 
-interface AddSubArticlesProps {
+interface AddSTravelIdeasProps {
   onCancel: () => void;
   refetch: () => void;
 }
 
-const AddSubArticles: React.FC<AddSubArticlesProps> = ({
+const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
   onCancel,
   refetch,
 }) => {
@@ -36,25 +42,25 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data, } = useFetch<ArticlesType>({
-      key: ['articles'],
-      url: '/articles',
+  const { data, } = useFetch<SubTrivelIdeasType>({
+      key: ['sub-travel-ideas'],
+      url: '/sub-travel-ideas',
     });
 
   const { mutate, isLoading } = useApiMutation({
-    url: "/subarticles",
+    url: "/travel-ideas",
     method: "POST",
     onSuccess: () => {
       reset();
-      toast.success("Kichkina maqola muvaffaqiyatli qo'shildi");
+      toast.success("Sayohat g'oyasi muvaffaqiyatli qo'shildi");
       onCancel();
       refetch();
     },
     onError: (error: any) => {
       if (error?.status === 409) {
-        toast.error("Bunday nomli Kichkina maqola allaqachon mavjud");
+        toast.error("Bunday nomli Sayohat g'oyasi allaqachon mavjud");
       } else {
-        toast.error("Kichkina maqola qo'shishda xatolik yuz berdi");
+        toast.error("Sayohat g'oyasi qo'shishda xatolik yuz berdi");
       }
     },
   });
@@ -69,16 +75,22 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
     formData.append("titleUz", data.titleUz);
     formData.append("titleRu", data.titleRu);
     formData.append("titleEn", data.titleEn);
-    formData.append("textEn", data.textEn);
-    formData.append("textRu", data.textRu);
-    formData.append("textUz", data.textUz);
-    formData.append("articleId", data.articleId);
+    formData.append("descriptionEn", data.descriptionEn);
+    formData.append("descriptionRu", data.descriptionRu);
+    formData.append("descriptionUz", data.descriptionUz);
+    formData.append("subTitleUz", data.subTitleUz);
+    formData.append("subTitleRu", data.subTitleRu);
+    formData.append("subTitleEn", data.subTitleEn);
+    formData.append("subDescriptionEn", data.subDescriptionEn);
+    formData.append("subDescriptionRu", data.subDescriptionRu);
+    formData.append("subDescriptionUz", data.subDescriptionUz);
+    formData.append("subTravelIdeasId", data.subTravelIdeasId);
 
-    if (data.images && data.images[0]) {
-      formData.append("images", data.images[0]);
+    if (data.image && data.image[0]) {
+      formData.append("image", data.image[0]);
     }
-    if (data.aboutImages && data.aboutImages[0]) {
-      formData.append("aboutImage", data.aboutImages[0]);
+    if (data.subImage && data.subImage[0]) {
+      formData.append("subImage", data.subImage[0]);
     }
 
     mutate(formData);
@@ -136,55 +148,55 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
 
       {/* Text */}
       <Form.Item
-        label="Matn (Uz)"
-        validateStatus={errors.textUz ? "error" : ""}
-        help={errors.textUz?.message}
+        label="Tavsif (Uz)"
+        validateStatus={errors.descriptionUz ? "error" : ""}
+        help={errors.descriptionUz?.message}
       >
         <Controller
-          name="textUz"
+          name="descriptionUz"
           control={control}
-          rules={{ required: "Matnni kiriting (Uz)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+          rules={{ required: "Tavsif kiriting (Uz)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
         />
       </Form.Item>
       <Form.Item
-        label="Matn (Ru)"
-        validateStatus={errors.textRu ? "error" : ""}
-        help={errors.textRu?.message}
+        label="Tavsif (Ru)"
+        validateStatus={errors.descriptionRu ? "error" : ""}
+        help={errors.descriptionRu?.message}
       >
         <Controller
-          name="textRu"
+          name="descriptionRu"
           control={control}
-          rules={{ required: "Matnni kiriting (Ru)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+          rules={{ required: "Tavsif kiriting (Ru)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
         />
       </Form.Item>
       <Form.Item
-        label="Matn (En)"
-        validateStatus={errors.textEn ? "error" : ""}
-        help={errors.textEn?.message}
+        label="Tavsif (En)"
+        validateStatus={errors.descriptionEn ? "error" : ""}
+        help={errors.descriptionEn?.message}
       >
         <Controller
-          name="textEn"
+          name="descriptionEn"
           control={control}
-          rules={{ required: "Matnni kiriting (En)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Matn" rows={5} />}
+          rules={{ required: "Tavsif kiriting (En)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
         />
       </Form.Item>
 
       {/* Images */}
       <Form.Item
-        label="Asosiy rasm yuklash"
-        validateStatus={errors.images ? "error" : ""}
-        help={errors.images?.message}
+        label="Rasm yuklash"
+        validateStatus={errors.image ? "error" : ""}
+        help={errors.image?.message}
       >
         <Controller
-          name="images"
+          name="image"
           control={control}
           rules={{ required: "Asosiy rasm yuklang" }}
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
-              name="images"
+              name="image"
               accept=".png,.webp,.ppt"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
@@ -209,22 +221,60 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
               </p>
             </Upload.Dragger>
           )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Qo'shimcha sarlavha (Uz)"
+        validateStatus={errors.subTitleUz ? "error" : ""}
+        help={errors.subTitleUz?.message}
+      >
+        <Controller
+          name="subTitleUz"
+          control={control}
+          rules={{ required: "Qo'shimcha sarlavhani kiriting (Uz)" }}
+          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (Uz)" />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Qo'shimcha sarlavha (Ru)"
+        validateStatus={errors.titleRu ? "error" : ""}
+        help={errors.titleRu?.message}
+      >
+        <Controller
+          name="subTitleRu"
+          control={control}
+          rules={{ required: "Qo'shimcha sarlavhani kiriting (Ru)" }}
+          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (Ru)" />}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Qo'shimcha sarlavha (En)"
+        validateStatus={errors.subTitleEn ? "error" : ""}
+        help={errors.subTitleEn?.message}
+      >
+        <Controller
+          name="subTitleEn"
+          control={control}
+          rules={{ required: "Qo'shimcha sarlavhani kiriting (En)" }}
+          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (En)" />}
         />
       </Form.Item>
 
       {/* About Images */}
       <Form.Item
         label="Qo'shimcha rasm yuklash"
-        validateStatus={errors.aboutImages ? "error" : ""}
-        help={errors.aboutImages?.message}
+        validateStatus={errors.subImage ? "error" : ""}
+        help={errors.subImage?.message}
       >
         <Controller
-          name="aboutImages"
+          name="subImage"
           control={control}
           rules={{ required: "Qo'shimcha rasmni yuklang" }}
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
-              name="aboutImages"
+              name="subImage"
               accept=".png,.webp,.ppt"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
@@ -252,20 +302,57 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
         />
       </Form.Item>
 
-      {/* Article ID */}
       <Form.Item
-        label="Maqola"
-        validateStatus={errors.articleId ? "error" : ""}
-        help={errors.articleId?.message}
+        label="Qoshimcha tavsif (Uz)"
+        validateStatus={errors.subDescriptionUz ? "error" : ""}
+        help={errors.subDescriptionUz?.message}
       >
         <Controller
-          name="articleId"
+          name="subDescriptionUz"
           control={control}
-          rules={{ required: "Maqola tanlang" }}
+          rules={{ required: "Qoshimcha tavsif kiriting (Uz)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Qoshimcha tavsif (Ru)"
+        validateStatus={errors.subDescriptionRu ? "error" : ""}
+        help={errors.subDescriptionRu?.message}
+      >
+        <Controller
+          name="subDescriptionRu"
+          control={control}
+          rules={{ required: "Qoshimcha tavsif kiriting (Ru)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Qoshimcha tavsif (En)"
+        validateStatus={errors.subDescriptionEn ? "error" : ""}
+        help={errors.subDescriptionEn?.message}
+      >
+        <Controller
+          name="subDescriptionEn"
+          control={control}
+          rules={{ required: "Qoshimcha tavsif kiriting (En)" }}
+          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+        />
+      </Form.Item>
+
+      {/* Article ID */}
+      <Form.Item
+        label="Sayohat g'oyasi"
+        validateStatus={errors.subTravelIdeasId ? "error" : ""}
+        help={errors.subTravelIdeasId?.message}
+      >
+        <Controller
+          name="subTravelIdeasId"
+          control={control}
+          rules={{ required: "Sayohat g'oyasi tanlang" }}
           render={({ field }) => (
-            <Select {...field} placeholder="Maqolani tanlang">
+            <Select {...field} placeholder="Sayohat g'oyasi tanlang">
               {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
-              {data?.items?.map((article: ArticlesType) => (
+              {data?.items?.map((article: SubTrivelIdeasType) => (
                 <Select.Option key={article?.id} value={article?.id}>
                   {article?.titleUz}
                 </Select.Option>
@@ -288,4 +375,4 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
   );
 };
 
-export default AddSubArticles;
+export default AddTravelIdeas;

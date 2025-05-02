@@ -5,6 +5,9 @@ import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
+import { SubTrivelIdeasType } from "../../../types/types";
+
+const { TextArea } = Input;
 
 type FormValues = {
   titleUz: string;
@@ -16,45 +19,50 @@ type FormValues = {
   file: RcFile[];
 };
 
-interface AddArticlesDesignerProps {
+interface EditSubTravelIdeasProps {
   onCancel: () => void;
   refetch: () => void;
+  data: SubTrivelIdeasType | undefined;
 }
 
-const AddArticles: React.FC<AddArticlesDesignerProps> = ({
+const EditSubTrivelIdeas: React.FC<EditSubTravelIdeasProps> = ({
   onCancel,
   refetch,
+  data,
 }) => {
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      titleUz: data?.titleUz,
+      titleRu: data?.titleRu,
+      titleEn: data?.titleEn,
+      descriptionUz: data?.descriptionUz,
+      descriptionRu: data?.descriptionRu,
+      descriptionEn: data?.descriptionEn,
+    },
+  });
 
   const { mutate, isLoading } = useApiMutation({
-    url: "/articles",
-    method: "POST",
+    url: `/sub-travel-ideas/update/${data?.id}`,
+    method: "PATCH",
     onSuccess: () => {
-        reset();
-      toast.success("Maqola muvaffaqiyatli qo'shildi");
+      reset();
+      toast.success("Sayohat g'oyasi muvaffaqiyatli yangilandi");
       onCancel();
       refetch();
     },
     onError: (error: any) => {
-      if (error?.response?.status === 409) {
-        toast.error("Bunday nomli Maqola allaqachon mavjud");
-      }else{
-        toast.error("Maqola qo'shishda xatolik yuz berdi");
+      if (error?.status === 409) {
+        toast.error("Bunday nomli Sayohat g'oyasi mavjud");
+      } else {
+        toast.error("Sayohat g'oyasini yangilashda xatolik yuz berdi");
       }
-      
     },
   });
-
-  const handleCancel = () => {
-      reset();
-    onCancel();
-  };
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();
@@ -65,18 +73,28 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
     formData.append("descriptionRu", data.descriptionRu);
     formData.append("descriptionEn", data.descriptionEn);
     if (data.file && data.file[0]) {
-      formData.append("images", data.file[0]);
+      formData.append("image", data.file[0]);
     }
+
     mutate(formData);
-    reset()
+    reset();
   };
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
+    const isAllowed = [
+      "image/png",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
     if (!isAllowed) {
       toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
     }
     return isAllowed || Upload.LIST_IGNORE;
+  };
+
+  const handleCancel = () => {
+    reset();
+    onCancel();
   };
 
   return (
@@ -90,12 +108,13 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="titleUz"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavhani kiriting (Uz)" />
+          )}
         />
       </Form.Item>
-
       <Form.Item
-        label="Sarlavha (Ru)"
+        label="Sarlavha(Ru)"
         validateStatus={errors.titleRu ? "error" : ""}
         help={errors.titleRu?.message}
       >
@@ -103,10 +122,11 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="titleRu"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavhani kiriting (Ru)" />
+          )}
         />
       </Form.Item>
-
       <Form.Item
         label="Sarlavha (En)"
         validateStatus={errors.titleEn ? "error" : ""}
@@ -116,58 +136,74 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="titleEn"
           control={control}
           rules={{ required: "Sarlavhani kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavhani kiriting (En)" />
+          )}
         />
       </Form.Item>
 
       <Form.Item
-        label="Tavsiv (Uz)"
+        label="Tavsif (Uz)"
         validateStatus={errors.descriptionUz ? "error" : ""}
         help={errors.descriptionUz?.message}
       >
         <Controller
           name="descriptionUz"
           control={control}
-          rules={{ required: "Tavsifni kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (Uz)" />}
+          rules={{ required: "Maʼlumot kiriting (Uz)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Maʼlumot kiriting (Uz)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
-
       <Form.Item
-        label="Tavsiv (Ru)"
+        label="Tavsif (Ru)"
         validateStatus={errors.descriptionRu ? "error" : ""}
         help={errors.descriptionRu?.message}
       >
         <Controller
           name="descriptionRu"
           control={control}
-          rules={{ required: "Tavsifni kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (Ru)" />}
+          rules={{ required: "Maʼlumot kiriting (Ru)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Maʼlumot kiriting (Ru)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
-
       <Form.Item
-        label="Tavsiv (En)"
+        label="Tavsif (En)"
         validateStatus={errors.descriptionEn ? "error" : ""}
         help={errors.descriptionEn?.message}
       >
         <Controller
           name="descriptionEn"
           control={control}
-          rules={{ required: "Tavsifni kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Tavsif (En)" />}
+          rules={{ required: "Maʼlumot kiriting (En)" }}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Maʼlumot kiriting (En)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
 
-      <Form.Item
-        label="Rasm yuklash"
-        validateStatus={errors.file ? "error" : ""}
-        help={errors.file?.message}
-      >
+      <Form.Item label="Rasm yuklash">
         <Controller
           name="file"
           control={control}
-          rules={{ required: "Rasm yuklang" }}
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="file"
@@ -183,6 +219,11 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
               onRemove={() => onChange([])}
               multiple={false}
               maxCount={1}
+              showUploadList={{
+                showPreviewIcon: false,
+                showRemoveIcon: true,
+                showDownloadIcon: false,
+              }}
             >
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
@@ -210,4 +251,4 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
   );
 };
 
-export default AddArticles;
+export default EditSubTrivelIdeas;

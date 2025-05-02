@@ -19,6 +19,8 @@ import { ConfigProvider } from "antd";
 import { useDarkModeStore } from "./store/darkModeStore";
 import { useStore } from "./store/userStore";
 import { useEffect } from "react";
+import SubTRivelIdeas from "./pages/SubTrivelIdeas/SubTRivelIdeas";
+import TrivelIdeas from "./pages/TrivelIdeas/TrivelIdeas";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
@@ -57,6 +59,8 @@ const App: React.FC = () => {
             <Route path="/articles" element={<Articles />} />
             <Route path="/subarticles" element={<SubArticles />} />
             <Route path="/operators" element={<Operators />} />
+            <Route path="/sub-travel-ideas" element={<SubTRivelIdeas />}/>
+            <Route path="/travel-ideas" element={<TrivelIdeas />}/>
             <Route path="/*" element={<Error404 />} />
           </Route>
         </Routes>

@@ -128,6 +128,9 @@ export interface TravelTypesType {
     titleUz: string;
     titleRu: string;
     titleEn: string;
+    descriptionUz: string;
+    descriptionRu: string;
+    descriptionEn: string;
     images: string;
   }
 
@@ -154,6 +157,41 @@ export interface TravelTypesType {
     phone: string;
     email: string;
     workTime: string;
+  }
+
+  export interface SubTrivelIdeasType{
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
+    descriptionUz: string;
+    descriptionRu: string;
+    descriptionEn: string;
+    image: string;
+  }
+
+  export interface TRavelIdeasType{
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
+    descriptionUz: string;
+    descriptionRu: string;
+    descriptionEn: string;
+    subTitleUz: string;
+    subTitleRu: string;
+    subTitleEn: string;
+    subDescriptionUz: string;
+    subDescriptionRu: string;
+    subDescriptionEn: string;
+    image: string;
+    subImage: string;
+    subTravelIdeasId: string;
+    subTravelIdeas: SubTrivelIdeasType;
   }
 
   

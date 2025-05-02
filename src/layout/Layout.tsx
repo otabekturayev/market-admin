@@ -4,7 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu,  theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "../store/userStore";
 import { SiLevelsdotfyi } from "react-icons/si";
@@ -25,7 +25,7 @@ const { Header, Sider, Content } = Layout;
 
 const RootLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {darkMode, toggleDarkMode} = useDarkModeStore();
+  const { darkMode, toggleDarkMode } = useDarkModeStore();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -56,6 +56,10 @@ const RootLayout: React.FC = () => {
         return ["9"];
       case "/operators":
         return ["10"];
+      case "/travel-ideas":
+        return ["12"];
+      case "/sub-travel-ideas":
+        return ["11"];
       default:
         return ["1"];
     }
@@ -71,13 +75,13 @@ const RootLayout: React.FC = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh"}}>
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
         theme={darkMode ? "dark" : "light"} // 👉 Sider ham o'zgaradi
-        style={{border: !darkMode ? "1px solid #d9d9d9" : "none"}}
+        style={{ border: !darkMode ? "1px solid #d9d9d9" : "none" }}
       >
         <Link to="/" className="flex justify-center py-5 pb-10">
           <h3 className="text-[30px] text-red-600">
@@ -139,10 +143,20 @@ const RootLayout: React.FC = () => {
               icon: <FaHeadset />,
               label: <Link to="/operators">Operatorlar</Link>,
             },
+            {
+              key: "11",
+              icon: <MdOutlineTravelExplore />,
+              label: <Link to="/sub-travel-ideas">Sayohat g'oyasi</Link>,
+            },
+            {
+              key: "12",
+              icon: <MdOutlineTravelExplore />,
+              label: <Link to="/travel-ideas">Sayohat g'oyalari</Link>,
+            },
           ]}
         />
       </Sider>
-      <Layout style={{background: !darkMode ? "#fff" : "#002140"}}>
+      <Layout style={{ background: !darkMode ? "#fff" : "#002140" }}>
         <Header
           style={{
             padding: 0,
@@ -151,22 +165,21 @@ const RootLayout: React.FC = () => {
             justifyContent: "space-between",
             paddingRight: "20px",
             background: darkMode ? "#001529" : colorBgContainer, // 👉 Header background ham
-            border: !darkMode ? "1px solid #d9d9d9" : "none"
+            border: !darkMode ? "1px solid #d9d9d9" : "none",
           }}
         >
           <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-                color: darkMode ? "#fff" : "#000", // 👉 Icon rangi ham moslashadi
-              }}
-            />
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 64,
+              color: darkMode ? "#fff" : "#000", // 👉 Icon rangi ham moslashadi
+            }}
+          />
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            
             <Button
               type="text"
               onClick={toggleTheme}
@@ -177,19 +190,18 @@ const RootLayout: React.FC = () => {
               }}
             />
             <Button
-            icon={<LogoutOutlined />}
-            onClick={handleLogout}
-            style={{
-              fontWeight: "600",
-              color: darkMode ? "rgba(255, 255, 255, 0.65)" : "#000",
-              background: darkMode ? "#001529" : colorBgContainer,
-              borderColor: !darkMode ? "#000" : "rgba(255, 255, 255, 0.65)",
-            }}
-          >
-            Chiqish
-          </Button>
+              icon={<LogoutOutlined />}
+              onClick={handleLogout}
+              style={{
+                fontWeight: "600",
+                color: darkMode ? "rgba(255, 255, 255, 0.65)" : "#000",
+                background: darkMode ? "#001529" : colorBgContainer,
+                borderColor: !darkMode ? "#000" : "rgba(255, 255, 255, 0.65)",
+              }}
+            >
+              Chiqish
+            </Button>
           </div>
-          
         </Header>
         <Content
           style={{
@@ -198,7 +210,7 @@ const RootLayout: React.FC = () => {
             minHeight: 280,
             background: darkMode ? "#001529" : colorBgContainer, // 👉 Content background
             borderRadius: borderRadiusLG,
-            border: !darkMode ? "1px solid #d9d9d9" : "none"
+            border: !darkMode ? "1px solid #d9d9d9" : "none",
           }}
         >
           <Outlet />
