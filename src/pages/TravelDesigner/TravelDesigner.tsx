@@ -39,7 +39,7 @@ const TravelDesigners = () => {
   });
 
   const { mutate } = useApiMutation({
-    url: '/travel-designers/delete',
+    url: '/travel-designers',
     method: 'DELETE',
     onSuccess: () => {
       toast.success('Sayohat dizayneri muvaffaqiyatli o‘chirildi')
