@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Form, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -35,16 +35,7 @@ const EditSubTrivelIdeas: React.FC<EditSubTravelIdeasProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      titleUz: data?.titleUz,
-      titleRu: data?.titleRu,
-      titleEn: data?.titleEn,
-      descriptionUz: data?.descriptionUz,
-      descriptionRu: data?.descriptionRu,
-      descriptionEn: data?.descriptionEn,
-    },
-  });
+  } = useForm<FormValues>();
 
   const { mutate, isLoading } = useApiMutation({
     url: `/sub-travel-ideas/update/${data?.id}`,
@@ -63,6 +54,17 @@ const EditSubTrivelIdeas: React.FC<EditSubTravelIdeasProps> = ({
       }
     },
   });
+
+  useEffect(() => {
+    reset({
+      titleUz: data?.titleUz || "",
+      titleRu: data?.titleRu || "",
+      titleEn: data?.titleEn || "",
+      descriptionUz: data?.descriptionUz || "",
+      descriptionRu: data?.descriptionRu || "",
+      descriptionEn: data?.descriptionEn || "",
+    });
+  }, [data]);
 
   const onSubmit = (data: FormValues) => {
     const formData = new FormData();

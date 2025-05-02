@@ -58,13 +58,13 @@ const EditTravelDesigner: React.FC<EditTravelDesignerProps> = ({
 
   useEffect(() => {
     reset({
-      nameUz: data?.nameUz,
-      nameRu: data?.nameRu,
-      nameEn: data?.nameEn,
-      email: data?.email,
-      aboutUz: data?.aboutUz,
-      aboutRu: data?.aboutRu,
-      aboutEn: data?.aboutEn,
+      nameUz: data?.nameUz || "",
+      nameRu: data?.nameRu || "",
+      nameEn: data?.nameEn || "",
+      email: data?.email || "",
+      aboutUz: data?.aboutUz || "",
+      aboutRu: data?.aboutRu || "",
+      aboutEn: data?.aboutEn || "",
     });
   }, [data]);
 
