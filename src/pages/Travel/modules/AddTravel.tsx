@@ -6,7 +6,12 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
-import { LevelsType, SubTravelType, TravelDesignersType, TravelTypesType } from "../../../types/types";
+import {
+  LevelsType,
+  SubTravelType,
+  TravelDesignersType,
+  TravelTypesType,
+} from "../../../types/types";
 
 const { TextArea } = Input;
 
@@ -90,12 +95,12 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
     formData.append("travelDesignerId", data.travelDesignerId);
     formData.append("levelId", data.levelId);
     formData.append("travelTypeId", data.travelTypeId);
-    formData.append("subTravelId", data.subTravelId);
+    formData.append("subTravelIds", JSON.stringify(data.subTravelId));
     if (data.file?.[0]) {
       formData.append("file", data.file[0]);
     }
     mutate(formData);
-    reset()
+    reset();
   };
 
   const handleCancel = () => {
@@ -104,94 +109,163 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
   };
 
   const beforeUpload = (file: RcFile) => {
-        const isAllowed = [
-          "image/png",
-          "image/jpeg",
-          "image/jpg",
-          "image/webp",
-          "application/vnd.ms-powerpoint"
-        ].includes(file.type);
-      
-        if (!isAllowed) {
-          toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
-        }
-      
-        return isAllowed || Upload.LIST_IGNORE;
-      };
+    const isAllowed = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
+
+    if (!isAllowed) {
+      toast.error(
+        "Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin"
+      );
+    }
+
+    return isAllowed || Upload.LIST_IGNORE;
+  };
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
-      <Form.Item label="Sarlavha (Uz)" validateStatus={errors.titleUz ? "error" : ""} help={errors.titleUz?.message}>
+      <Form.Item
+        label="Sarlavha (Uz)"
+        validateStatus={errors.titleUz ? "error" : ""}
+        help={errors.titleUz?.message}
+      >
         <Controller
           name="titleUz"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Uz)" />
+          )}
         />
       </Form.Item>
-      <Form.Item label="Sarlavha (Ru)" validateStatus={errors.titleRu ? "error" : ""} help={errors.titleRu?.message}>
+      <Form.Item
+        label="Sarlavha (Ru)"
+        validateStatus={errors.titleRu ? "error" : ""}
+        help={errors.titleRu?.message}
+      >
         <Controller
           name="titleRu"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Ru)" />
+          )}
         />
       </Form.Item>
-      <Form.Item label="Sarlavha (En)" validateStatus={errors.titleEn ? "error" : ""} help={errors.titleEn?.message}>
+      <Form.Item
+        label="Sarlavha (En)"
+        validateStatus={errors.titleEn ? "error" : ""}
+        help={errors.titleEn?.message}
+      >
         <Controller
           name="titleEn"
           control={control}
           rules={{ required: "Sarlavhani kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (En)" />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Tavsif (Uz)" validateStatus={errors.descriptionUz ? "error" : ""} help={errors.descriptionUz?.message}>
+      <Form.Item
+        label="Tavsif (Uz)"
+        validateStatus={errors.descriptionUz ? "error" : ""}
+        help={errors.descriptionUz?.message}
+      >
         <Controller
           name="descriptionUz"
           control={control}
           rules={{ required: "Tavsif kiriting (Uz)" }}
-          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Uz)" style={{ resize: 'none', height: '100px'}}/>}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Tavsif (Uz)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Tavsif (Ru)" validateStatus={errors.descriptionRu ? "error" : ""} help={errors.descriptionRu?.message}>
+      <Form.Item
+        label="Tavsif (Ru)"
+        validateStatus={errors.descriptionRu ? "error" : ""}
+        help={errors.descriptionRu?.message}
+      >
         <Controller
           name="descriptionRu"
           control={control}
           rules={{ required: "Tavsif kiriting (Ru)" }}
-          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (Ru)" style={{ resize: 'none', height: '100px'}}/>}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Tavsif (Ru)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Tavsif (En)" validateStatus={errors.descriptionEn ? "error" : ""} help={errors.descriptionEn?.message}>
+      <Form.Item
+        label="Tavsif (En)"
+        validateStatus={errors.descriptionEn ? "error" : ""}
+        help={errors.descriptionEn?.message}
+      >
         <Controller
           name="descriptionEn"
           control={control}
           rules={{ required: "Tavsif kiriting (En)" }}
-          render={({ field }) => <TextArea {...field} rows={4} placeholder="Tavsif (En)" style={{ resize: 'none', height: '100px'}}/>}
+          render={({ field }) => (
+            <TextArea
+              {...field}
+              rows={4}
+              placeholder="Tavsif (En)"
+              style={{ resize: "none", height: "100px" }}
+            />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Kunlar soni" validateStatus={errors.days ? "error" : ""} help={errors.days?.message}>
+      <Form.Item
+        label="Kunlar soni"
+        validateStatus={errors.days ? "error" : ""}
+        help={errors.days?.message}
+      >
         <Controller
           name="days"
           control={control}
-          rules={{ required: "Kunlar sonini kiriting"}}
-          render={({ field }) => <Input type="number" {...field} placeholder="Masalan: 7" />}
+          rules={{ required: "Kunlar sonini kiriting" }}
+          render={({ field }) => (
+            <Input type="number" {...field} placeholder="Masalan: 7" />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Narx" validateStatus={errors.price ? "error" : ""} help={errors.price?.message}>
+      <Form.Item
+        label="Narx"
+        validateStatus={errors.price ? "error" : ""}
+        help={errors.price?.message}
+      >
         <Controller
           name="price"
           control={control}
-          rules={{ required: "Narxni kiriting"}}
-          render={({ field }) => <Input type="number" {...field} placeholder="Masalan: 1500000" />}
+          rules={{ required: "Narxni kiriting" }}
+          render={({ field }) => (
+            <Input type="number" {...field} placeholder="Masalan: 1500000" />
+          )}
         />
       </Form.Item>
 
-      <Form.Item label="Sayohat dizayneri" validateStatus={errors.travelDesignerId ? "error" : ""} help={errors.travelDesignerId?.message}>
+      <Form.Item
+        label="Sayohat dizayneri"
+        validateStatus={errors.travelDesignerId ? "error" : ""}
+        help={errors.travelDesignerId?.message}
+      >
         <Controller
           name="travelDesignerId"
           control={control}
@@ -208,7 +282,11 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Sayohat turi" validateStatus={errors.travelTypeId ? "error" : ""} help={errors.travelTypeId?.message}>
+      <Form.Item
+        label="Sayohat turi"
+        validateStatus={errors.travelTypeId ? "error" : ""}
+        help={errors.travelTypeId?.message}
+      >
         <Controller
           name="travelTypeId"
           control={control}
@@ -225,7 +303,11 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Daraja" validateStatus={errors.levelId ? "error" : ""} help={errors.levelId?.message}>
+      <Form.Item
+        label="Daraja"
+        validateStatus={errors.levelId ? "error" : ""}
+        help={errors.levelId?.message}
+      >
         <Controller
           name="levelId"
           control={control}
@@ -242,13 +324,22 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Ichki sayohat" validateStatus={errors.subTravelId ? "error" : ""} help={errors.subTravelId?.message}>
+      <Form.Item
+        label="Ichki sayohat"
+        validateStatus={errors.subTravelId ? "error" : ""}
+        help={errors.subTravelId?.message}
+      >
         <Controller
           name="subTravelId"
           control={control}
           rules={{ required: "Ichki sayohat tanlang" }}
           render={({ field }) => (
-            <Select {...field} placeholder="Ichki sayohat tanlang">
+            <Select
+              mode="multiple"
+              allowClear
+              {...field}
+              placeholder="Ichki sayohat tanlang"
+            >
               {subTravelData?.items?.map((level: SubTravelType) => (
                 <Select.Option key={level?.id} value={level?.id}>
                   {level?.titleUz}
@@ -259,7 +350,11 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Rasm yuklash" validateStatus={errors.file ? "error" : ""} help={errors.file?.message}>
+      <Form.Item
+        label="Rasm yuklash"
+        validateStatus={errors.file ? "error" : ""}
+        help={errors.file?.message}
+      >
         <Controller
           name="file"
           control={control}
@@ -282,8 +377,12 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">Faylni bu yerga tashlang yoki yuklash uchun bosing</p>
-              <p className="ant-upload-hint">Faqat .png, .jpeg va .webp fayllar qabul qilinadi</p>
+              <p className="ant-upload-text">
+                Faylni bu yerga tashlang yoki yuklash uchun bosing
+              </p>
+              <p className="ant-upload-hint">
+                Faqat .png, .jpeg va .webp fayllar qabul qilinadi
+              </p>
             </Upload.Dragger>
           )}
         />

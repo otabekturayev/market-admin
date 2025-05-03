@@ -60,7 +60,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
         travelDesignerId: data.travelDesigner?.id,
         levelId: data.levels[0].id,
         travelTypeId: data.travelTypeId,
-        subTravelId: data?.subTravelId,
+        // subTravelId: data?.subTravelId,
         file: [],
       });
     }
@@ -353,10 +353,12 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
       >
         <Controller
           name="subTravelId"
+          
           control={control}
           rules={{ required: "Ichki sayohat tanlang" }}
           render={({ field }) => (
-            <Select {...field} placeholder="Ichki sayohat tanlang">
+            <Select mode="multiple"
+            allowClear {...field} placeholder="Ichki sayohat tanlang">
               {subTravelData?.items?.map((level: SubTravelType) => (
                 <Select.Option key={level?.id} value={level?.id}>
                   {level?.titleUz}

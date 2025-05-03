@@ -106,7 +106,7 @@ export interface TravelTypesType {
     levels: LevelsType[],
     attactions: AttractionsType[],
     day: DaysType[]
-    subTravelId: string
+    subTravelId: string[]
   }
   
   export interface ServicesType{
