@@ -98,12 +98,20 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
   };
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
-    if (!isAllowed) {
-      toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
-    }
-    return isAllowed || Upload.LIST_IGNORE;
-  };
+        const isAllowed = [
+          "image/png",
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "application/vnd.ms-powerpoint"
+        ].includes(file.type);
+      
+        if (!isAllowed) {
+          toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
+        }
+      
+        return isAllowed || Upload.LIST_IGNORE;
+      };
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
@@ -197,7 +205,7 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="image"
-              accept=".png,.webp,.ppt"
+              accept=".png,.webp,.ppt,.jpg,.jpeg"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
                 if (isValid !== Upload.LIST_IGNORE) {
@@ -275,7 +283,7 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="subImage"
-              accept=".png,.webp,.ppt"
+              accept=".png,.webp,.ppt,.jpg,.jpeg"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
                 if (isValid !== Upload.LIST_IGNORE) {

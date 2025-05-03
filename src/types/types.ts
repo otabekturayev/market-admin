@@ -106,6 +106,7 @@ export interface TravelTypesType {
     levels: LevelsType[],
     attactions: AttractionsType[],
     day: DaysType[]
+    subTravelId: string
   }
   
   export interface ServicesType{
@@ -192,6 +193,20 @@ export interface TravelTypesType {
     subImage: string;
     subTravelIdeasId: string;
     subTravelIdeas: SubTrivelIdeasType;
+  }
+
+
+  export interface SubTravelType{
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    titleUz: string;
+    titleRu: string;
+    titleEn: string;
+    descriptionUz: string;
+    descriptionRu: string;
+    descriptionEn: string;
+    image: string;
   }
 
   

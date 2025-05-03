@@ -21,6 +21,7 @@ import { useStore } from "./store/userStore";
 import { useEffect } from "react";
 import SubTRivelIdeas from "./pages/SubTrivelIdeas/SubTRivelIdeas";
 import TrivelIdeas from "./pages/TrivelIdeas/TrivelIdeas";
+import SubTravel from "./pages/SubTravel/SubTravel";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
@@ -52,6 +53,7 @@ const App: React.FC = () => {
             <Route index element={<Lavel />} />
             <Route path="/travel-types" element={<TravelTypes />} />
             <Route path="/travel-designers" element={<TravelDesigners />} />
+            <Route path="/sub-travel" element={<SubTravel />} />
             <Route path="/travel" element={<Travel />} />
             <Route path="/attractions" element={<Attractions />} />
             <Route path="/services" element={<Services />} />

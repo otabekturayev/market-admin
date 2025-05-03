@@ -86,13 +86,20 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
   };
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
-    if (!isAllowed) {
-      toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
-    }
-    return isAllowed || Upload.LIST_IGNORE;
-  };
-
+            const isAllowed = [
+              "image/png",
+              "image/jpeg",
+              "image/jpg",
+              "image/webp",
+              "application/vnd.ms-powerpoint"
+            ].includes(file.type);
+          
+            if (!isAllowed) {
+              toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
+            }
+          
+            return isAllowed || Upload.LIST_IGNORE;
+          };
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
       {/* Title */}
@@ -185,7 +192,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="images"
-              accept=".png,.webp,.ppt"
+              accept=".png,.webp,.ppt,.jpg,.jpeg"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
                 if (isValid !== Upload.LIST_IGNORE) {
@@ -225,7 +232,7 @@ const AddSubArticles: React.FC<AddSubArticlesProps> = ({
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="aboutImages"
-              accept=".png,.webp,.ppt"
+              accept=".png,.webp,.ppt,.jpg,.jpeg"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
                 if (isValid !== Upload.LIST_IGNORE) {

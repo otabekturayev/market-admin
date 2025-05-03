@@ -42,24 +42,26 @@ const RootLayout: React.FC = () => {
         return ["2"];
       case "/travel-types":
         return ["3"];
-      case "/travel":
+        case "/sub-travel":
         return ["4"];
-      case "/attractions":
+      case "/travel":
         return ["5"];
-      case "/services":
+      case "/attractions":
         return ["6"];
-      case "/days":
+      case "/services":
         return ["7"];
-      case "/articles":
+      case "/days":
         return ["8"];
-      case "/subarticles":
+      case "/articles":
         return ["9"];
-      case "/operators":
+      case "/subarticles":
         return ["10"];
-      case "/travel-ideas":
-        return ["12"];
-      case "/sub-travel-ideas":
+      case "/operators":
         return ["11"];
+      case "/travel-ideas":
+        return ["13"];
+      case "/sub-travel-ideas":
+        return ["12"];
       default:
         return ["1"];
     }
@@ -111,45 +113,50 @@ const RootLayout: React.FC = () => {
             {
               key: "4",
               icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel">Sayohat</Link>,
+              label: <Link to="/sub-travel">Ichki sayohat</Link>,
             },
             {
               key: "5",
+              icon: <MdOutlineTravelExplore />,
+              label: <Link to="/travel">Sayohat</Link>,
+            },
+            {
+              key: "6",
               icon: <MdOutlineAttractions />,
               label: <Link to="/attractions">Diqqatga sazovor joylar</Link>,
             },
             {
-              key: "6",
+              key: "7",
               icon: <MdMiscellaneousServices />,
               label: <Link to="/services">Xizmatlar</Link>,
             },
             {
-              key: "7",
+              key: "8",
               icon: <LuCalendarDays />,
               label: <Link to="/days">Kunlar</Link>,
             },
             {
-              key: "8",
+              key: "9",
               icon: <PiArticleNyTimesBold />,
               label: <Link to="/articles">Maqolalar</Link>,
             },
             {
-              key: "9",
+              key: "10",
               icon: <TbArticle />,
               label: <Link to="/subarticles">Kichkina maqolalar</Link>,
             },
             {
-              key: "10",
+              key: "11",
               icon: <FaHeadset />,
               label: <Link to="/operators">Operatorlar</Link>,
             },
             {
-              key: "11",
+              key: "12",
               icon: <MdOutlineTravelExplore />,
               label: <Link to="/sub-travel-ideas">Sayohat g'oyasi</Link>,
             },
             {
-              key: "12",
+              key: "13",
               icon: <MdOutlineTravelExplore />,
               label: <Link to="/travel-ideas">Sayohat g'oyalari</Link>,
             },

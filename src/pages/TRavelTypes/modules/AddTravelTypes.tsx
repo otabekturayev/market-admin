@@ -65,10 +65,18 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
   };
 
   const beforeUpload = (file: RcFile) => {
-    const isAllowed = ["image/png", "image/webp", "application/vnd.ms-powerpoint"].includes(file.type);
+    const isAllowed = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/webp",
+      "application/vnd.ms-powerpoint"
+    ].includes(file.type);
+  
     if (!isAllowed) {
-      toast.error("Faqat .png, .webp yoki .ppt fayllarni yuklash mumkin");
+      toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
     }
+  
     return isAllowed || Upload.LIST_IGNORE;
   };
 
@@ -123,7 +131,7 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           render={({ field: { onChange, value } }) => (
             <Upload.Dragger
               name="file"
-              accept=".png,.webp,.ppt"
+              accept=".png,.webp,.ppt,.jpg,.jpeg"
               beforeUpload={(file) => {
                 const isValid = beforeUpload(file);
                 if (isValid !== Upload.LIST_IGNORE) {
