@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import UniversalModal from "../../components/UniversalModal";
 import EditTravel from "./modules/EditTravel";
 import AddTravel from "./modules/AddTravel";
-import { DataTravelType, LevelsType, ModulsType, TravelDesignersType, TravelTypesType } from "../../types/types";
+import { DataTravelType, LevelsType, ModulsType, SubTravelType, TravelDesignersType, TravelTypesType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
@@ -218,6 +218,18 @@ const Travel = () => {
         overflowY: 'auto',
         overflowX: 'hidden',
       }}>{record?.titleUz}</span>,
+    },
+    {
+      title: "Ichki sayohat",
+      dataIndex: "subTravels",
+      render: (record: SubTravelType[]) => <span style={{
+        maxWidth: 250,
+        maxHeight: 150,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        display: "flex",
+        flexDirection: "column"
+      }}>{record?.map((item: SubTravelType, i: number) => <span>{i+1}. {item?.titleUz}</span>)}</span>,
     },
     {
       title: "Daraja",
