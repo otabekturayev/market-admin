@@ -117,7 +117,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
     formData.append("travelDesignerId", formDataValues.travelDesignerId);
     formData.append("levelId", formDataValues.levelId);
     formData.append("travelTypeId", formDataValues.travelTypeId || "");
-    formData.append("subTravelId", JSON.stringify(formDataValues.subTravelId));
+    formData.append("subTravelIds", JSON.stringify(formDataValues.subTravelId));
     if (formDataValues.file?.[0]) {
       formData.append("file", formDataValues.file[0]);
     }
