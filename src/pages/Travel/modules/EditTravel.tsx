@@ -29,7 +29,7 @@ type FormValues = {
   levelId: string;
   file: RcFile[];
   travelTypeId: string | null | undefined;
-  subTravelId: string;
+  subTravelId: string[];
 };
 
 interface EditTravelProps {
@@ -59,8 +59,8 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
         price: data.price,
         travelDesignerId: data.travelDesigner?.id,
         levelId: data.levels[0].id,
-        travelTypeId: data.travelTypeId,
-        // subTravelId: data?.subTravelId,
+        travelTypeId: data.travelType?.id,
+        subTravelId: data?.subTravel?.map((item: any) => item?.id) || [],
         file: [],
       });
     }
@@ -117,7 +117,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
     formData.append("travelDesignerId", formDataValues.travelDesignerId);
     formData.append("levelId", formDataValues.levelId);
     formData.append("travelTypeId", formDataValues.travelTypeId || "");
-    formData.append("subTravelId", formDataValues.subTravelId);
+    formData.append("subTravelId", JSON.stringify(formDataValues.subTravelId));
     if (formDataValues.file?.[0]) {
       formData.append("file", formDataValues.file[0]);
     }
@@ -126,20 +126,22 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
   };
 
   const beforeUpload = (file: RcFile) => {
-        const isAllowed = [
-          "image/png",
-          "image/jpeg",
-          "image/jpg",
-          "image/webp",
-          "application/vnd.ms-powerpoint"
-        ].includes(file.type);
-      
-        if (!isAllowed) {
-          toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
-        }
-      
-        return isAllowed || Upload.LIST_IGNORE;
-      };
+    const isAllowed = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
+
+    if (!isAllowed) {
+      toast.error(
+        "Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin"
+      );
+    }
+
+    return isAllowed || Upload.LIST_IGNORE;
+  };
 
   const handleCancel = () => {
     reset();
@@ -353,12 +355,15 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
       >
         <Controller
           name="subTravelId"
-          
           control={control}
           rules={{ required: "Ichki sayohat tanlang" }}
           render={({ field }) => (
-            <Select mode="multiple"
-            allowClear {...field} placeholder="Ichki sayohat tanlang">
+            <Select
+              mode="multiple"
+              allowClear
+              {...field}
+              placeholder="Ichki sayohat tanlang"
+            >
               {subTravelData?.items?.map((level: SubTravelType) => (
                 <Select.Option key={level?.id} value={level?.id}>
                   {level?.titleUz}
