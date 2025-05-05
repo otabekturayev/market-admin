@@ -300,7 +300,7 @@ const TravelIdeas = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <div className="text-[23px] font-semibold">Kichkina maqola</div>
+        <div className="text-[23px] font-semibold">Sayohat g'oyalari</div>
         <div className="flex items-center gap-3">
           <Search
             placeholder="Qidiruv"

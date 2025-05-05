@@ -46,6 +46,9 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
     formState: { errors },
   } = useForm<FormValues>();
 
+  
+  
+
   useEffect(() => {
     if (data) {
       reset({
@@ -60,7 +63,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
         travelDesignerId: data.travelDesigner?.id,
         levelId: data.levels[0].id,
         travelTypeId: data.travelType?.id,
-        subTravelId: data?.subTravel?.map((item: any) => item?.id) || [],
+        subTravelId: data?.subTravels?.map((item: any) => item?.id) || [],
         file: [],
       });
     }
