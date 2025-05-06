@@ -10,7 +10,7 @@ interface DarkModeState {
 export const useDarkModeStore = create<DarkModeState>()(
   persist(
     (set) => ({
-      darkMode: false,
+      darkMode: true,
       toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
     }),
     {

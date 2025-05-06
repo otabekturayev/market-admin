@@ -77,7 +77,7 @@ const RootLayout: React.FC = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         trigger={null}
         collapsible
@@ -218,6 +218,7 @@ const RootLayout: React.FC = () => {
             background: darkMode ? "#001529" : colorBgContainer, // 👉 Content background
             borderRadius: borderRadiusLG,
             border: !darkMode ? "1px solid #d9d9d9" : "none",
+            overflowY: "scroll"
           }}
         >
           <Outlet />
