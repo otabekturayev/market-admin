@@ -126,6 +126,90 @@ const TravelTypes = () => {
         </div>)
     },
     {
+      title: "Sayohat Nomi (Uz)",
+      dataIndex: "tourTitleUz",
+      key: "tourTitleUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Sayohat Nomi (Ru)",
+      dataIndex: "tourTitleRu",
+      key: "tourTitleRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Sayohat Nomi (En)",
+      dataIndex: "tourTitleEn",
+      key: "tourTitleEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (Uz)",
+      dataIndex: "descreptionUz",
+      key: "descreptionUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (Ru)",
+      dataIndex: "descreptionRu",
+      key: "descreptionRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Tavsif (En)",
+      dataIndex: "descreptionEn",
+      key: "descreptionEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
       title: "Rasm",
       dataIndex: "image",
       key: "image",

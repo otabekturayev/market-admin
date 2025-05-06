@@ -21,6 +21,9 @@ type FormValues = {
   subDescriptionUz: string;
   subDescriptionRu: string;
   subDescriptionEn: string;
+  miniInfoUz: string;
+  miniInfoRu: string;
+  miniInfoEn: string;
   image: RcFile[];
   subImage: RcFile[];
   subTravelIdeasId: string;
@@ -42,10 +45,10 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data, } = useFetch<SubTrivelIdeasType>({
-      key: ['sub-travel-ideas'],
-      url: '/sub-travel-ideas',
-    });
+  const { data } = useFetch<SubTrivelIdeasType>({
+    key: ["sub-travel-ideas"],
+    url: "/sub-travel-ideas",
+  });
 
   const { mutate, isLoading } = useApiMutation({
     url: "/travel-ideas",
@@ -75,6 +78,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
     formData.append("titleUz", data.titleUz);
     formData.append("titleRu", data.titleRu);
     formData.append("titleEn", data.titleEn);
+    formData.append("miniInfoUz", data.miniInfoUz)
+    formData.append("miniInfoRu", data.miniInfoRu)
+    formData.append("miniInfoEn", data.miniInfoEn)
     formData.append("descriptionEn", data.descriptionEn);
     formData.append("descriptionRu", data.descriptionRu);
     formData.append("descriptionUz", data.descriptionUz);
@@ -98,20 +104,22 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
   };
 
   const beforeUpload = (file: RcFile) => {
-        const isAllowed = [
-          "image/png",
-          "image/jpeg",
-          "image/jpg",
-          "image/webp",
-          "application/vnd.ms-powerpoint"
-        ].includes(file.type);
-      
-        if (!isAllowed) {
-          toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
-        }
-      
-        return isAllowed || Upload.LIST_IGNORE;
-      };
+    const isAllowed = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/webp",
+      "application/vnd.ms-powerpoint",
+    ].includes(file.type);
+
+    if (!isAllowed) {
+      toast.error(
+        "Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin"
+      );
+    }
+
+    return isAllowed || Upload.LIST_IGNORE;
+  };
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
@@ -125,7 +133,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="titleUz"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Uz)" />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -137,7 +147,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="titleRu"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Ru)" />
+          )}
         />
       </Form.Item>
 
@@ -150,7 +162,54 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="titleEn"
           control={control}
           rules={{ required: "Sarlavhani kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (En)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Kichkina tavsif (Uz)"
+        validateStatus={errors.miniInfoUz ? "error" : ""}
+        help={errors.miniInfoUz?.message}
+      >
+        <Controller
+          name="miniInfoUz"
+          control={control}
+          rules={{ required: "Kichkina tavsif kiriting (uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Kichkina tavsif (uz)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Kichkina tavsif (Ru)"
+        validateStatus={errors.miniInfoRu ? "error" : ""}
+        help={errors.miniInfoRu?.message}
+      >
+        <Controller
+          name="miniInfoRu"
+          control={control}
+          rules={{ required: "Kichkina tavsif kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Kichkina tavsif (Ru)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Kichkina tavsif (En)"
+        validateStatus={errors.miniInfoEn ? "error" : ""}
+        help={errors.miniInfoEn?.message}
+      >
+        <Controller
+          name="miniInfoEn"
+          control={control}
+          rules={{ required: "Kichkina tavsif kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Kichkina tavsif (En)" />
+          )}
         />
       </Form.Item>
 
@@ -164,7 +223,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="descriptionUz"
           control={control}
           rules={{ required: "Tavsif kiriting (Uz)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -176,7 +242,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="descriptionRu"
           control={control}
           rules={{ required: "Tavsif kiriting (Ru)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -188,7 +261,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="descriptionEn"
           control={control}
           rules={{ required: "Tavsif kiriting (En)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
 
@@ -241,7 +321,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subTitleUz"
           control={control}
           rules={{ required: "Qo'shimcha sarlavhani kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (Uz)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Qo'shimcha sarlavha (Uz)" />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -253,7 +335,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subTitleRu"
           control={control}
           rules={{ required: "Qo'shimcha sarlavhani kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (Ru)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Qo'shimcha sarlavha (Ru)" />
+          )}
         />
       </Form.Item>
 
@@ -266,7 +350,9 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subTitleEn"
           control={control}
           rules={{ required: "Qo'shimcha sarlavhani kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Qo'shimcha sarlavha (En)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Qo'shimcha sarlavha (En)" />
+          )}
         />
       </Form.Item>
 
@@ -319,7 +405,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subDescriptionUz"
           control={control}
           rules={{ required: "Qoshimcha tavsif kiriting (Uz)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Qoshimcha tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -331,7 +424,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subDescriptionRu"
           control={control}
           rules={{ required: "Qoshimcha tavsif kiriting (Ru)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Qoshimcha tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -343,7 +443,14 @@ const AddTravelIdeas: React.FC<AddSTravelIdeasProps> = ({
           name="subDescriptionEn"
           control={control}
           rules={{ required: "Qoshimcha tavsif kiriting (En)" }}
-          render={({ field }) => <Input.TextArea style={{ height: "100px", resize: "none" }} {...field} placeholder="Qoshimcha tavsif" rows={5} />}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Qoshimcha tavsif"
+              rows={5}
+            />
+          )}
         />
       </Form.Item>
 

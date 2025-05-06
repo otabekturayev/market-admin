@@ -124,6 +124,48 @@ const TravelIdeas = () => {
         </div>)
     },
     {
+      title: "Kichkina Tavsif (Uz)",
+      dataIndex: "miniInfoUz",
+      key: "miniInfoUz",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Kichkina Tavsif (Ru)",
+      dataIndex: "miniInfoRu",
+      key: "miniInfoRu",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
+      title: "Kichkina Tavsif (En)",
+      dataIndex: "miniInfoEn",
+      key: "miniInfoEn",
+      render: (text: string) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text}
+        </div>)
+    },
+    {
       title: "Tavsif (Uz)",
       dataIndex: "descriptionUz",
       key: "descriptionUz",

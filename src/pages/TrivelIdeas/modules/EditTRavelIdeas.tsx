@@ -18,6 +18,9 @@ type FormValues = {
   subTitleUz: string;
   subTitleRu: string;
   subTitleEn: string;
+  miniInfoUz: string;
+  miniInfoRu: string;
+  miniInfoEn: string;
   subDescriptionUz: string;
   subDescriptionRu: string;
   subDescriptionEn: string;
@@ -75,6 +78,9 @@ const EditTRavelIdeas: React.FC<EditSubArticlesProps> = ({
         descriptionUz: data.descriptionUz,
         descriptionRu: data.descriptionRu,
         descriptionEn: data.descriptionEn,
+        miniInfoEn: data.miniInfoEn,
+        miniInfoRu: data.miniInfoRu,
+        miniInfoUz: data.miniInfoUz,
         subTitleUz: data.subTitleUz,
         subTitleRu: data.subTitleRu,
         subTitleEn: data.subTitleEn,
@@ -99,6 +105,9 @@ const EditTRavelIdeas: React.FC<EditSubArticlesProps> = ({
     formData.append("descriptionEn", data.descriptionEn);
     formData.append("descriptionRu", data.descriptionRu);
     formData.append("descriptionUz", data.descriptionUz);
+    formData.append("miniInfoUz", data.miniInfoUz)
+    formData.append("miniInfoRu", data.miniInfoRu)
+    formData.append("miniInfoEn", data.miniInfoEn)
     formData.append("subTitleUz", data.subTitleUz);
     formData.append("subTitleRu", data.subTitleRu);
     formData.append("subTitleEn", data.subTitleEn);
@@ -179,6 +188,50 @@ const EditTRavelIdeas: React.FC<EditSubArticlesProps> = ({
           )}
         />
       </Form.Item>
+      <Form.Item
+              label="Kichkina tavsif (Uz)"
+              validateStatus={errors.miniInfoUz ? "error" : ""}
+              help={errors.miniInfoUz?.message}
+            >
+              <Controller
+                name="miniInfoUz"
+                control={control}
+                rules={{ required: "Kichkina tavsif kiriting (uz)" }}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Kichkina tavsif (uz)" />
+                )}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Kichkina tavsif (Ru)"
+              validateStatus={errors.miniInfoRu ? "error" : ""}
+              help={errors.miniInfoRu?.message}
+            >
+              <Controller
+                name="miniInfoRu"
+                control={control}
+                rules={{ required: "Kichkina tavsif kiriting (Ru)" }}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Kichkina tavsif (Ru)" />
+                )}
+              />
+            </Form.Item>
+      
+            <Form.Item
+              label="Kichkina tavsif (En)"
+              validateStatus={errors.miniInfoEn ? "error" : ""}
+              help={errors.miniInfoEn?.message}
+            >
+              <Controller
+                name="miniInfoEn"
+                control={control}
+                rules={{ required: "Kichkina tavsif kiriting (En)" }}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Kichkina tavsif (En)" />
+                )}
+              />
+            </Form.Item>
 
       {/* Text */}
       <Form.Item

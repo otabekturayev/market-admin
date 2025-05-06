@@ -30,6 +30,13 @@ export interface TravelTypesType {
     titleUz: string;
     titleRu: string;
     titleEn: string;
+    descreptionUz: string;
+    descreptionRu: string;
+    descreptionEn: string;
+    tourTitleUz:string;
+    tourTitleRu: string;
+    tourTitleEn: string;
+    travelIdeaId: string
     image: string;
   };
   export interface DaysType{
@@ -186,6 +193,9 @@ export interface TravelTypesType {
     subTitleUz: string;
     subTitleRu: string;
     subTitleEn: string;
+    miniInfoUz: string;
+    miniInfoRu: string;
+    miniInfoEn: string;
     subDescriptionUz: string;
     subDescriptionRu: string;
     subDescriptionEn: string;

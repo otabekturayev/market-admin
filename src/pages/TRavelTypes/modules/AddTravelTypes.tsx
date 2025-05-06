@@ -1,15 +1,24 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Input, Button, Form, Upload } from "antd";
+import { Input, Button, Form, Upload, Select } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
+import { useFetch } from "../../../hooks/useFetch";
+import { TRavelIdeasType } from "../../../types/types";
 
 type FormValues = {
   nameUz: string;
   nameRu: string;
   nameEn: string;
+  descreptionUz: string;
+  descreptionRu: string;
+  descreptionEn: string;
+  tourTitleUz: string;
+  tourTitleRu: string;
+  tourTitleEn: string;
+  travelIdeaId: string;
   file: RcFile[];
 };
 
@@ -29,26 +38,31 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
     formState: { errors },
   } = useForm<FormValues>();
 
+  const { data } = useFetch<TRavelIdeasType>({
+    key: ["travel-ideas"],
+    url: "/travel-ideas",
+  });
+
   const { mutate, isLoading } = useApiMutation({
     url: "/travel-types",
     method: "POST",
     onSuccess: () => {
-        reset();
+      reset();
       toast.success("Sayohat turi muvaffaqiyatli qo'shildi");
       onCancel();
       refetch();
     },
     onError: (error: any) => {
-      if(error?.status === 409){
+      if (error?.status === 409) {
         toast.error("Bunday nomli Sayohat turi allaqachon mavjud");
-      }else{
+      } else {
         toast.error("Sayohat turi qo'shishda xatolik yuz berdi");
       }
     },
   });
 
   const handleCancel = () => {
-      reset();
+    reset();
     onCancel();
   };
 
@@ -57,11 +71,18 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
     formData.append("titleUz", data.nameUz);
     formData.append("titleRu", data.nameRu);
     formData.append("titleEn", data.nameEn);
+    formData.append("descreptionEn", data.descreptionEn);
+    formData.append("descreptionRu", data.descreptionRu);
+    formData.append("descreptionUz", data.descreptionUz);
+    formData.append("tourTitleEn", data.tourTitleEn);
+    formData.append("tourTitleRu", data.tourTitleRu);
+    formData.append("tourTitleUz", data.tourTitleUz);
+    formData.append("travelIdeaId", data.travelIdeaId);
     if (data.file && data.file[0]) {
       formData.append("image", data.file[0]);
     }
     mutate(formData);
-    reset()
+    reset();
   };
 
   const beforeUpload = (file: RcFile) => {
@@ -70,13 +91,15 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
       "image/jpeg",
       "image/jpg",
       "image/webp",
-      "application/vnd.ms-powerpoint"
+      "application/vnd.ms-powerpoint",
     ].includes(file.type);
-  
+
     if (!isAllowed) {
-      toast.error("Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin");
+      toast.error(
+        "Faqat .png, .jpeg, .jpg, .webp yoki .ppt fayllarni yuklash mumkin"
+      );
     }
-  
+
     return isAllowed || Upload.LIST_IGNORE;
   };
 
@@ -91,7 +114,9 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="nameUz"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Uz)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Uz)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Uz)" />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -103,7 +128,9 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="nameRu"
           control={control}
           rules={{ required: "Sarlavhani kiriting (Ru)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (Ru)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (Ru)" />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -115,7 +142,132 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
           name="nameEn"
           control={control}
           rules={{ required: "Sarlavhani kiriting (En)" }}
-          render={({ field }) => <Input {...field} placeholder="Sarlavha (En)" />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sarlavha (En)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sayohat sarlavhasi (Uz)"
+        validateStatus={errors.tourTitleUz ? "error" : ""}
+        help={errors.tourTitleUz?.message}
+      >
+        <Controller
+          name="tourTitleUz"
+          control={control}
+          rules={{ required: "Sayohat sarlavhasini kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sayohat sarlavhasi (Uz)" />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Saayohat srlavhasi (Ru)"
+        validateStatus={errors.tourTitleRu ? "error" : ""}
+        help={errors.tourTitleRu?.message}
+      >
+        <Controller
+          name="tourTitleRu"
+          control={control}
+          rules={{ required: "Sayohat sarlavhasini kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sayohat sarlavhasi (Ru)" />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Sayohat sarlavhasi (En)"
+        validateStatus={errors.tourTitleEn ? "error" : ""}
+        help={errors.tourTitleEn?.message}
+      >
+        <Controller
+          name="tourTitleEn"
+          control={control}
+          rules={{ required: "Sayohat sarlavhasini kiriting (En)" }}
+          render={({ field }) => (
+            <Input {...field} placeholder="Sayohat sarlavhasi (En)" />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Tavsif (Uz)"
+        validateStatus={errors.descreptionUz ? "error" : ""}
+        help={errors.descreptionUz?.message}
+      >
+        <Controller
+          name="descreptionUz"
+          control={control}
+          rules={{ required: "Tavsif kiriting (Uz)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Tavsif (Ru)"
+        validateStatus={errors.descreptionRu ? "error" : ""}
+        help={errors.descreptionRu?.message}
+      >
+        <Controller
+          name="descreptionRu"
+          control={control}
+          rules={{ required: "Tavsif kiriting (Ru)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Tavsif (En)"
+        validateStatus={errors.descreptionEn ? "error" : ""}
+        help={errors.descreptionEn?.message}
+      >
+        <Controller
+          name="descreptionEn"
+          control={control}
+          rules={{ required: "Tavsif kiriting (En)" }}
+          render={({ field }) => (
+            <Input.TextArea
+              style={{ height: "100px", resize: "none" }}
+              {...field}
+              placeholder="Tavsif"
+              rows={5}
+            />
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sayohat g'oyasi"
+        validateStatus={errors.travelIdeaId ? "error" : ""}
+        help={errors.travelIdeaId?.message}
+      >
+        <Controller
+          name="travelIdeaId"
+          control={control}
+          rules={{ required: "Sayohat g'oyasi tanlang" }}
+          render={({ field }) => (
+            <Select {...field} placeholder="Sayohat g'oyasi tanlang">
+              {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
+              {data?.items?.map((article: TRavelIdeasType) => (
+                <Select.Option key={article?.id} value={article?.id}>
+                  {article?.titleUz}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
         />
       </Form.Item>
 
