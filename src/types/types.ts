@@ -39,6 +39,18 @@ export interface ExprensType{
   descreptionEn: string;
 }
 
+export interface ReviewsType{
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  images: string;
+  rate: number | string;
+  userName: string;
+  textUz: string;
+  textEn: string;
+  textRu: string;
+}
+
 export interface TravelTypesType {
     id: string;
     createdAt: string;

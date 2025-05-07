@@ -23,6 +23,7 @@ import SubTRivelIdeas from "./pages/SubTrivelIdeas/SubTRivelIdeas";
 import TrivelIdeas from "./pages/TrivelIdeas/TrivelIdeas";
 import SubTravel from "./pages/SubTravel/SubTravel";
 import Experience from "./pages/Experience/Experience";
+import Reviews from "./pages/Reviews/Reviews";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
@@ -65,6 +66,7 @@ const App: React.FC = () => {
             <Route path="/operators" element={<Operators />} />
             <Route path="/sub-travel-ideas" element={<SubTRivelIdeas />}/>
             <Route path="/travel-ideas" element={<TrivelIdeas />}/>
+            <Route path="/reviews" element={<Reviews />}/>
             <Route path="/*" element={<Error404 />} />
           </Route>
         </Routes>

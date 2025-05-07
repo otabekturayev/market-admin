@@ -12,6 +12,7 @@ import {
   MdMiscellaneousServices,
   MdOutlineAttractions,
   MdOutlineModeOfTravel,
+  MdOutlineRateReview,
   MdOutlineTravelExplore,
 } from "react-icons/md";
 import { LuCalendarDays } from "react-icons/lu";
@@ -64,6 +65,8 @@ const RootLayout: React.FC = () => {
         return ["14"];
       case "/sub-travel-ideas":
         return ["13"];
+        case "/reviews":
+        return ["15"];
       default:
         return ["1"];
     }
@@ -166,6 +169,11 @@ const RootLayout: React.FC = () => {
               key: "14",
               icon: <MdOutlineTravelExplore />,
               label: <Link to="/travel-ideas">Sayohat g'oyalari</Link>,
+            },
+            {
+              key: "15",
+              icon: <MdOutlineRateReview />,
+              label: <Link to="/reviews">Izohlar</Link>,
             },
           ]}
         />
