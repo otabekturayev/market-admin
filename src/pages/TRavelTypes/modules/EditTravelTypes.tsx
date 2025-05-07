@@ -5,7 +5,7 @@ import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
-import { TRavelIdeasType, TravelTypesType } from "../../../types/types";
+import { ExprensType, TRavelIdeasType, TravelTypesType } from "../../../types/types";
 import { useFetch } from "../../../hooks/useFetch";
 
 type FormValues = {
@@ -20,6 +20,7 @@ type FormValues = {
   tourTitleEn: string;
   travelIdeaId: string;
   file: RcFile[];
+  exprensId: string
 };
 
 interface EditTravelTypesProps {
@@ -45,6 +46,11 @@ const EditTravelTypes: React.FC<EditTravelTypesProps> = ({
       url: "/travel-ideas",
     });
 
+    const { data: exprens } = useFetch<ExprensType>({
+        key: ["exprens"],
+        url: "/exprens",
+      });
+
   useEffect(() => {
     if (data) {
       reset({
@@ -58,6 +64,7 @@ const EditTravelTypes: React.FC<EditTravelTypesProps> = ({
         tourTitleRu: data?.tourTitleRu || "",
         tourTitleEn: data?.tourTitleEn || "",
         travelIdeaId: data?.travelIdeaId || "",
+        exprensId: data?.exprensId || "",
         file: [],
       });
     }
@@ -93,6 +100,7 @@ const EditTravelTypes: React.FC<EditTravelTypesProps> = ({
     form.append("tourTitleRu", formData.tourTitleRu);
     form.append("tourTitleUz", formData.tourTitleUz);
     form.append("travelIdeaId", formData.travelIdeaId);
+    form.append("exprensId", formData.exprensId)
     if (formData.file && formData.file.length > 0) {
       form.append("image", formData.file[0]);
     }
@@ -288,6 +296,28 @@ const EditTravelTypes: React.FC<EditTravelTypesProps> = ({
           )}
         />
       </Form.Item>
+
+      <Form.Item
+              label="Sayohatdagi ta'surot"
+              validateStatus={errors.exprensId ? "error" : ""}
+              help={errors.exprensId?.message}
+            >
+              <Controller
+                name="exprensId"
+                control={control}
+                rules={{ required: "Sayohatdagi ta'surotni tanlang" }}
+                render={({ field }) => (
+                  <Select {...field} placeholder="Sayohatdagi ta'surotni tanlang">
+                    {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
+                    {exprens?.items?.map((exprens: ExprensType) => (
+                      <Select.Option key={exprens?.id} value={exprens?.id}>
+                        {exprens?.titleUz}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                )}
+              />
+            </Form.Item>
 
       <Form.Item
         label="Rasm yuklash"

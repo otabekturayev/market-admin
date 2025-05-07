@@ -23,6 +23,22 @@ export interface TravelDesignersType {
   aboutEn: string;
 }
 
+export interface ExprensType{
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  titleUz: string;
+  titleRu: string;
+  titleEn: string;
+  subTitleUz: string;
+  subTitleRu: string;
+  subTitleEn: string;
+  image: string;
+  descreptionUz: string;
+  descreptionRu: string;
+  descreptionEn: string;
+}
+
 export interface TravelTypesType {
     id: string;
     createdAt: string;
@@ -38,6 +54,8 @@ export interface TravelTypesType {
     tourTitleEn: string;
     travelIdeaId: string
     image: string;
+    exprensId: string
+    expren: ExprensType
   };
   export interface DaysType{
     id: string;
@@ -50,6 +68,8 @@ export interface TravelTypesType {
     longitude: number;
     travel: TravelType;
   };
+
+  
 
   export interface TravelType{
     id: string;
@@ -65,6 +85,7 @@ export interface TravelTypesType {
     days: number;
     price: number | undefined;
     travelTypeId: string;
+    
   };
 
   export interface AttractionsType{

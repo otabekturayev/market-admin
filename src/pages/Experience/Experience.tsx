@@ -7,28 +7,27 @@ import UniversalModal from "../../components/UniversalModal";
 import { useFetch } from "../../hooks/useFetch";
 import useApiMutation from "../../hooks/useMutation";
 import { toast } from "react-toastify";
-import EditTravelTypes from "./modules/EditTravelTypes";
-import AddTravelTypes from "./modules/AddTravelTypes";
-import { ExprensType, ModulsType, TravelTypesType } from "../../types/types";
+import { ExprensType, ModulsType} from "../../types/types";
+import EditExperience from "./modules/EditExperience";
+import AddExperience from "./modules/AddExperience";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-
-const TravelTypes = () => {
+const Experience = () => {
   const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [travelTypesSingleData, setTravelTypesSingleData] = useState<TravelTypesType>();
+  const [experienceSingleData, setExperienceSingleData] = useState<ExprensType>();
   const [formType, setFormType] = useState<ModulsType>("");
   const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
     current: 1,
     pageSize: 10,
   });
-
-  const { data, isLoading, refetch } = useFetch<TravelTypesType>({
-    key: ['travel-types', pagination.current, pagination.pageSize, search],
-    url: '/travel-types',
+  
+  const { data, isLoading, refetch } = useFetch<ExprensType>({
+    key: ['exprens', pagination.current, pagination.pageSize, search],
+    url: '/exprens',
     config: {
       params: {
         page: pagination.current,
@@ -39,14 +38,14 @@ const TravelTypes = () => {
   });
 
   const { mutate } = useApiMutation({
-    url: '/travel-types/delete',
+    url: '/exprens/delete',
     method: 'DELETE',
     onSuccess: () => {
-      toast.success('Sayohat turi muvaffaqiyatli o‘chirildi')
+      toast.success("Sayohat ta'suroti muvaffaqiyatli o‘chirildi")
       refetch()
     },
     onError: () => {
-      toast.error('Sayohat turi o‘chirishda xatolik yuz berdi')
+      toast.error("Sayohat ta'surotini o‘chirishda xatolik yuz berdi")
     },
   });
 
@@ -55,8 +54,8 @@ const TravelTypes = () => {
     setFormType(type);
   };
 
-  const handleEdit = (record: TravelTypesType, type: ModulsType) => {
-    setTravelTypesSingleData(record);
+  const handleEdit = (record: ExprensType, type: ModulsType) => {
+    setExperienceSingleData(record);
     showModal(type);
   };
 
@@ -69,11 +68,11 @@ const TravelTypes = () => {
     setPagination({ ...pagination, current: 1 });
   };
 
-  const handleDelete = (record: TravelTypesType) => {
+  const handleDelete = (record: ExprensType) => {
     mutate({ id: record?.id });
   };
 
-  const columns: ColumnsType<TravelTypesType> = [
+  const columns: ColumnsType<ExprensType> = [
     {
       title: "№",
       render: (_, __, index) => (
@@ -84,7 +83,7 @@ const TravelTypes = () => {
       width: 70,
     },
     {
-      title: "Nomi (Uz)",
+      title: "Sarlavha (Uz)",
       dataIndex: "titleUz",
       key: "titleUz",
       render: (text: string) => (
@@ -98,7 +97,7 @@ const TravelTypes = () => {
         </div>)
     },
     {
-      title: "Nomi (Ru)",
+      title: "Sarlavha (Ru)",
       dataIndex: "titleRu",
       key: "titleRu",
       render: (text: string) => (
@@ -112,7 +111,7 @@ const TravelTypes = () => {
         </div>)
     },
     {
-      title: "Nomi (En)",
+      title: "Sarlavha (En)",
       dataIndex: "titleEn",
       key: "titleEn",
       render: (text: string) => (
@@ -126,9 +125,9 @@ const TravelTypes = () => {
         </div>)
     },
     {
-      title: "Sayohat Nomi (Uz)",
-      dataIndex: "tourTitleUz",
-      key: "tourTitleUz",
+      title: "Kichkina sarlavha (Uz)",
+      dataIndex: "subTitleUz",
+      key: "subTitleUz",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -140,9 +139,9 @@ const TravelTypes = () => {
         </div>)
     },
     {
-      title: "Sayohat Nomi (Ru)",
-      dataIndex: "tourTitleRu",
-      key: "tourTitleRu",
+      title: "Kichkina sarlavha (Ru)",
+      dataIndex: "subTitleRu",
+      key: "subTitleRu",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -154,9 +153,9 @@ const TravelTypes = () => {
         </div>)
     },
     {
-      title: "Sayohat Nomi (En)",
-      dataIndex: "tourTitleEn",
-      key: "tourTitleEn",
+      title: "Kichkina sarlavha (En)",
+      dataIndex: "subTitleEn",
+      key: "subTitleEn",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -209,27 +208,12 @@ const TravelTypes = () => {
           {text}
         </div>)
     },
-
-    {
-      title: "Sayohat ta'suroti",
-      dataIndex: "expren",
-      key: "expren",
-      render: (text: ExprensType) => (
-        <div style={{
-          maxWidth: 250,
-          maxHeight: 150,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-        }}>
-          {text?.titleUz}
-        </div>)
-    },
     {
       title: "Rasm",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
-        <img src={image} alt="Travel Designer" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
+        <img src={image} alt="Travel experience" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {
@@ -263,7 +247,7 @@ const TravelTypes = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <div className="text-[23px] font-semibold">Sayohat turlari</div>
+        <div className="text-[23px] font-semibold">Sayohat ta'surotlari</div>
         <div className="flex items-center gap-3">
           <Search
             placeholder="Qidiruv"
@@ -294,13 +278,13 @@ const TravelTypes = () => {
       />
       <UniversalModal
         open={isModalOpen}
-        title={formType === "edit" ? "Sayohat turini tahrirlash" : "Sayohat turini qo'shish"}
+        title={formType === "edit" ? "Sayohat ta'surotini tahrirlash" : "Sayohat ta'suroti qo'shish"}
         onCancel={handleCancel}
       >
-        {formType === "edit" ? <EditTravelTypes onCancel={handleCancel} data={travelTypesSingleData} refetch={refetch}/> : <AddTravelTypes refetch={refetch} onCancel={handleCancel}/>} 
+        {formType === "edit" ? <EditExperience onCancel={handleCancel} data={experienceSingleData} refetch={refetch}/> : <AddExperience refetch={refetch} onCancel={handleCancel}/>} 
       </UniversalModal>
     </div>
   );
 };
 
-export default TravelTypes;
+export default Experience;

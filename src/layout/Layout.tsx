@@ -40,28 +40,30 @@ const RootLayout: React.FC = () => {
         return ["1"];
       case "/travel-designers":
         return ["2"];
-      case "/travel-types":
+        case "/experience":
         return ["3"];
-        case "/sub-travel":
+      case "/travel-types":
         return ["4"];
-      case "/travel":
+        case "/sub-travel":
         return ["5"];
-      case "/attractions":
+      case "/travel":
         return ["6"];
-      case "/services":
+      case "/attractions":
         return ["7"];
-      case "/days":
+      case "/services":
         return ["8"];
-      case "/articles":
+      case "/days":
         return ["9"];
-      case "/subarticles":
+      case "/articles":
         return ["10"];
-      case "/operators":
+      case "/subarticles":
         return ["11"];
-      case "/travel-ideas":
-        return ["13"];
-      case "/sub-travel-ideas":
+      case "/operators":
         return ["12"];
+      case "/travel-ideas":
+        return ["14"];
+      case "/sub-travel-ideas":
+        return ["13"];
       default:
         return ["1"];
     }
@@ -108,55 +110,60 @@ const RootLayout: React.FC = () => {
             {
               key: "3",
               icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel-types">Sayohat turi</Link>,
+              label: <Link to="/experience">Sayohat ta'surotlari</Link>,
             },
             {
               key: "4",
               icon: <MdOutlineTravelExplore />,
-              label: <Link to="/sub-travel">Ichki sayohat</Link>,
+              label: <Link to="/travel-types">Sayohat turi</Link>,
             },
             {
               key: "5",
               icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel">Sayohat</Link>,
+              label: <Link to="/sub-travel">Ichki sayohat</Link>,
             },
             {
               key: "6",
+              icon: <MdOutlineTravelExplore />,
+              label: <Link to="/travel">Sayohat</Link>,
+            },
+            {
+              key: "7",
               icon: <MdOutlineAttractions />,
               label: <Link to="/attractions">Diqqatga sazovor joylar</Link>,
             },
             {
-              key: "7",
+              key: "8",
               icon: <MdMiscellaneousServices />,
               label: <Link to="/services">Xizmatlar</Link>,
             },
             {
-              key: "8",
+              key: "9",
               icon: <LuCalendarDays />,
               label: <Link to="/days">Kunlar</Link>,
             },
             {
-              key: "9",
+              key: "10",
               icon: <PiArticleNyTimesBold />,
               label: <Link to="/articles">Maqolalar</Link>,
             },
             {
-              key: "10",
+              key: "11",
               icon: <TbArticle />,
               label: <Link to="/subarticles">Kichkina maqolalar</Link>,
             },
             {
-              key: "11",
+              key: "12",
               icon: <FaHeadset />,
               label: <Link to="/operators">Operatorlar</Link>,
             },
             {
-              key: "12",
+              key: "13",
               icon: <MdOutlineTravelExplore />,
               label: <Link to="/sub-travel-ideas">Sayohat g'oyasi</Link>,
             },
             {
-              key: "13",
+              key: "14",
               icon: <MdOutlineTravelExplore />,
               label: <Link to="/travel-ideas">Sayohat g'oyalari</Link>,
             },

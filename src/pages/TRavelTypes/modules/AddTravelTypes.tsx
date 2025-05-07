@@ -6,7 +6,7 @@ import { RcFile } from "antd/es/upload";
 import useApiMutation from "../../../hooks/useMutation";
 import { toast } from "react-toastify";
 import { useFetch } from "../../../hooks/useFetch";
-import { TRavelIdeasType } from "../../../types/types";
+import { ExprensType, TRavelIdeasType } from "../../../types/types";
 
 type FormValues = {
   nameUz: string;
@@ -20,6 +20,7 @@ type FormValues = {
   tourTitleEn: string;
   travelIdeaId: string;
   file: RcFile[];
+  exprensId: string
 };
 
 interface AddArticlesDesignerProps {
@@ -41,6 +42,11 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
   const { data } = useFetch<TRavelIdeasType>({
     key: ["travel-ideas"],
     url: "/travel-ideas",
+  });
+
+  const { data: exprens } = useFetch<ExprensType>({
+    key: ["exprens"],
+    url: "/exprens",
   });
 
   const { mutate, isLoading } = useApiMutation({
@@ -78,6 +84,7 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
     formData.append("tourTitleRu", data.tourTitleRu);
     formData.append("tourTitleUz", data.tourTitleUz);
     formData.append("travelIdeaId", data.travelIdeaId);
+    formData.append("exprensId", data.exprensId)
     if (data.file && data.file[0]) {
       formData.append("image", data.file[0]);
     }
@@ -264,6 +271,28 @@ const AddArticles: React.FC<AddArticlesDesignerProps> = ({
               {data?.items?.map((article: TRavelIdeasType) => (
                 <Select.Option key={article?.id} value={article?.id}>
                   {article?.titleUz}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Sayohatdagi ta'surot"
+        validateStatus={errors.exprensId ? "error" : ""}
+        help={errors.exprensId?.message}
+      >
+        <Controller
+          name="exprensId"
+          control={control}
+          rules={{ required: "Sayohatdagi ta'surotni tanlang" }}
+          render={({ field }) => (
+            <Select {...field} placeholder="Sayohatdagi ta'surotni tanlang">
+              {/* Bu yerga dynamic ravishda maqolalar keladi. Hozircha statik variant qo'yildi */}
+              {exprens?.items?.map((exprens: ExprensType) => (
+                <Select.Option key={exprens?.id} value={exprens?.id}>
+                  {exprens?.titleUz}
                 </Select.Option>
               ))}
             </Select>
