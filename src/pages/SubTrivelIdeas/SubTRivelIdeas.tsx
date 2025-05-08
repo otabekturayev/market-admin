@@ -43,7 +43,7 @@ const SubTRivelIdeas = () => {
   
 
   const { mutate } = useApiMutation({
-    url: '/travel-designers/delete',
+    url: '/sub-travel-ideas//delete',
     method: 'DELETE',
     onSuccess: () => {
       toast.success("Sayohat g'oyasi muvaffaqiyatli o‘chirildi")
