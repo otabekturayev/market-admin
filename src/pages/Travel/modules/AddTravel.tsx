@@ -239,7 +239,13 @@ const AddTravel: React.FC<AddLevelProps> = ({ onCancel, refetch }) => {
         <Controller
           name="days"
           control={control}
-          rules={{ required: "Kunlar sonini kiriting" }}
+          rules={{
+            required: "Kunlar sonini kiriting",
+            min: {
+              value: 1,
+              message: "Faqat 1 dan katta bo'lgan son kiriting",
+            },
+          }}
           render={({ field }) => (
             <Input type="number" {...field} placeholder="Masalan: 7" />
           )}
