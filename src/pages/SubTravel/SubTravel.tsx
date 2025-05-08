@@ -43,14 +43,14 @@ const SubTravel = () => {
   
 
   const { mutate } = useApiMutation({
-    url: '/travel-designers/delete',
+    url: '/subtravel/delete',
     method: 'DELETE',
     onSuccess: () => {
-      toast.success("Sayohat g'oyasi muvaffaqiyatli o‘chirildi")
+      toast.success("Ichki sayohat muvaffaqiyatli o‘chirildi")
       refetch()
     },
     onError: () => {
-      toast.error("Sayohat g'oyasini o‘chirishda xatolik yuz berdi")
+      toast.error("Ichki sayohatni o‘chirishda xatolik yuz berdi")
     },
   });
 
