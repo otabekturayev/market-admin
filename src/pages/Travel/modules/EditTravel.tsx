@@ -360,7 +360,7 @@ const EditTravel: React.FC<EditTravelProps> = ({ onCancel, refetch, data }) => {
         <Controller
           name="subTravelId"
           control={control}
-          rules={{ required: "Ichki sayohat tanlang" }}
+          // rules={{ required: "Ichki sayohat tanlang" }}
           render={({ field }) => (
             <Select
               mode="multiple"
