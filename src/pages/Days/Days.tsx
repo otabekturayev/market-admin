@@ -38,7 +38,7 @@ const Days = () => {
   });
 
   const { mutate } = useApiMutation({
-    url: '/days/delete',
+    url: '/days',
     method: 'DELETE',
     onSuccess: () => {
       toast.success('Kun muvaffaqiyatli o‘chirildi')
