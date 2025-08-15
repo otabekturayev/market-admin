@@ -30,11 +30,11 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const { accessToken } = useStore();
 
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/login");
-    }
-  }, [accessToken]);
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     navigate("/login");
+  //   }
+  // }, [accessToken]);
 
   return (
     <>
