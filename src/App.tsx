@@ -17,8 +17,8 @@ import Operators from "./pages/Operators/Operators";
 import TravelTypes from "./pages/TRavelTypes/TravelTypes";
 import { ConfigProvider } from "antd";
 import { useDarkModeStore } from "./store/darkModeStore";
-import { useStore } from "./store/userStore";
-import { useEffect } from "react";
+// import { useStore } from "./store/userStore";
+// import { useEffect } from "react";
 import SubTRivelIdeas from "./pages/SubTrivelIdeas/SubTRivelIdeas";
 import TrivelIdeas from "./pages/TrivelIdeas/TrivelIdeas";
 import SubTravel from "./pages/SubTravel/SubTravel";
@@ -27,8 +27,8 @@ import Reviews from "./pages/Reviews/Reviews";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
-  const navigate = useNavigate();
-  const { accessToken } = useStore();
+  // const navigate = useNavigate();
+  // const { accessToken } = useStore();
 
   // useEffect(() => {
   //   if (!accessToken) {

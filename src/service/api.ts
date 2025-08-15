@@ -47,7 +47,6 @@ api.interceptors.response.use(
           const refreshResponse = await axios.post(`${REACT_APP_BASE_URL}/auth/refresh-token`, {
             refresh_token: refreshToken,
           });
-          console.log(refreshResponse?.data);
           
           const newAccessToken = refreshResponse?.data?.access_token;
           const newRefreshToken = refreshResponse?.data?.refresh_token;
