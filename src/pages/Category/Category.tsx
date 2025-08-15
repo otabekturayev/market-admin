@@ -7,45 +7,46 @@ import UniversalModal from "../../components/UniversalModal";
 import { useFetch } from "../../hooks/useFetch";
 import useApiMutation from "../../hooks/useMutation";
 import { toast } from "react-toastify";
-import { ExprensType, ModulsType} from "../../types/types";
-import EditExperience from "./modules/EditExperience";
-import AddExperience from "./modules/AddExperience";
+import EditCategory from "./modules/EditCategory";
+import AddCategory from "./modules/AddCategory";
+import { ModulsType, CategoryType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-const Experience = () => {
+
+const TravelDesigners = () => {
   const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [experienceSingleData, setExperienceSingleData] = useState<ExprensType>();
+  const [categorySingleData, setCategorySingleData] = useState<CategoryType>();
   const [formType, setFormType] = useState<ModulsType>("");
   const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
     current: 1,
     pageSize: 10,
   });
   
-  const { data, isLoading, refetch } = useFetch<ExprensType>({
-    key: ['exprens', pagination.current, pagination.pageSize, search],
-    url: '/exprens',
+  const { data, isLoading, refetch } = useFetch<CategoryType>({
+    key: ['category', pagination.current, pagination.pageSize, search],
+    url: '/category',
     config: {
       params: {
         page: pagination.current,
         limit: pagination.pageSize,
-        title: search || null
+        search: search || null
       },
     },
   });
 
   const { mutate } = useApiMutation({
-    url: '/exprens/delete',
+    url: '/Category',
     method: 'DELETE',
     onSuccess: () => {
-      toast.success("Sayohat ta'suroti muvaffaqiyatli o‘chirildi")
+      toast.success('Kategoriya muvaffaqiyatli o‘chirildi')
       refetch()
     },
     onError: () => {
-      toast.error("Sayohat ta'surotini o‘chirishda xatolik yuz berdi")
+      toast.error('Kategoriyani o‘chirishda xatolik yuz berdi')
     },
   });
 
@@ -54,8 +55,8 @@ const Experience = () => {
     setFormType(type);
   };
 
-  const handleEdit = (record: ExprensType, type: ModulsType) => {
-    setExperienceSingleData(record);
+  const handleEdit = (record: CategoryType, type: ModulsType) => {
+    setCategorySingleData(record);
     showModal(type);
   };
 
@@ -68,11 +69,11 @@ const Experience = () => {
     setPagination({ ...pagination, current: 1 });
   };
 
-  const handleDelete = (record: ExprensType) => {
+  const handleDelete = (record: CategoryType) => {
     mutate({ id: record?.id });
   };
 
-  const columns: ColumnsType<ExprensType> = [
+  const columns: ColumnsType<CategoryType> = [
     {
       title: "№",
       render: (_, __, index) => (
@@ -125,51 +126,9 @@ const Experience = () => {
         </div>)
     },
     {
-      title: "Kichkina sarlavha (Uz)",
-      dataIndex: "subTitleUz",
-      key: "subTitleUz",
-      render: (text: string) => (
-        <div style={{
-          maxWidth: 250,
-          maxHeight: 150,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-        }}>
-          {text}
-        </div>)
-    },
-    {
-      title: "Kichkina sarlavha (Ru)",
-      dataIndex: "subTitleRu",
-      key: "subTitleRu",
-      render: (text: string) => (
-        <div style={{
-          maxWidth: 250,
-          maxHeight: 150,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-        }}>
-          {text}
-        </div>)
-    },
-    {
-      title: "Kichkina sarlavha (En)",
-      dataIndex: "subTitleEn",
-      key: "subTitleEn",
-      render: (text: string) => (
-        <div style={{
-          maxWidth: 250,
-          maxHeight: 150,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-        }}>
-          {text}
-        </div>)
-    },
-    {
       title: "Tavsif (Uz)",
-      dataIndex: "descreptionUz",
-      key: "descreptionUz",
+      dataIndex: "descriptionUz",
+      key: "descriptionUz",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -182,8 +141,8 @@ const Experience = () => {
     },
     {
       title: "Tavsif (Ru)",
-      dataIndex: "descreptionRu",
-      key: "descreptionRu",
+      dataIndex: "descriptionRu",
+      key: "descriptionRu",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -196,8 +155,8 @@ const Experience = () => {
     },
     {
       title: "Tavsif (En)",
-      dataIndex: "descreptionEn",
-      key: "descreptionEn",
+      dataIndex: "descriptionEn",
+      key: "descriptionEn",
       render: (text: string) => (
         <div style={{
           maxWidth: 250,
@@ -207,14 +166,6 @@ const Experience = () => {
         }}>
           {text}
         </div>)
-    },
-    {
-      title: "Rasm",
-      dataIndex: "image",
-      key: "image",
-      render: (image: string) => (
-        <img src={image} alt="Travel experience" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
-      ),
     },
     {
       title: "Harakatlar",
@@ -247,7 +198,7 @@ const Experience = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <div className="text-[23px] font-semibold">Sayohat ta'surotlari</div>
+        <div className="text-[23px] font-semibold">Kategoriyalar</div>
         <div className="flex items-center gap-3">
           <Search
             placeholder="Qidiruv"
@@ -278,13 +229,13 @@ const Experience = () => {
       />
       <UniversalModal
         open={isModalOpen}
-        title={formType === "edit" ? "Sayohat ta'surotini tahrirlash" : "Sayohat ta'suroti qo'shish"}
+        title={formType === "edit" ? "Kategoriyani tahrirlash" : "Kategoriya qo'shish"}
         onCancel={handleCancel}
       >
-        {formType === "edit" ? <EditExperience onCancel={handleCancel} data={experienceSingleData} refetch={refetch}/> : <AddExperience refetch={refetch} onCancel={handleCancel}/>} 
+        {formType === "edit" ? <EditCategory onCancel={handleCancel} data={categorySingleData} refetch={refetch}/> : <AddCategory refetch={refetch} onCancel={handleCancel}/>} 
       </UniversalModal>
     </div>
   );
 };
 
-export default Experience;
+export default TravelDesigners;

@@ -1,59 +1,52 @@
-import {
-  DeleteOutlined,
-  EditOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import { Button, Input, Popconfirm, Space, Table } from "antd";
+import { Button, Input, Table, Space, Popconfirm } from "antd";
 import type { GetProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useState } from "react";
+import { EditOutlined, DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import UniversalModal from "../../components/UniversalModal";
 import { useFetch } from "../../hooks/useFetch";
 import useApiMutation from "../../hooks/useMutation";
 import { toast } from "react-toastify";
-import UniversalModal from "../../components/UniversalModal";
-import EditServices from "./modules/EditServices";
-import AddServices from "./modules/AddServices";
-import { DataServicesType, LevelsType, ModulsType } from "../../types/types";
+import EditProduct from "./modules/EditProduct";
+import AddProduct from "./modules/AddProduct";
+import {  CategoryType, ModulsType, ProductsType } from "../../types/types";
 
 type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-const Services = () => {
+
+const Products = () => {
   const [search, setSearch] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [servicesSingleData, setServicesSingleData] =
-    useState<DataServicesType>();
+  const [productSingleData, setProductSingleData] = useState<ProductsType>();
   const [formType, setFormType] = useState<ModulsType>("");
-  const [pagination, setPagination] = useState<{
-    current: number;
-    pageSize: number;
-  }>({
+  const [pagination, setPagination] = useState<{ current: number; pageSize: number }>({
     current: 1,
     pageSize: 10,
   });
 
-  const { data, isLoading, refetch } = useFetch<DataServicesType>({
-    key: ["services", pagination.current, pagination.pageSize, search],
-    url: "/services",
+  const { data, isLoading, refetch } = useFetch<ProductsType>({
+    key: ['products', pagination.current, pagination.pageSize, search],
+    url: '/products',
     config: {
       params: {
         page: pagination.current,
         limit: pagination.pageSize,
-        title: search || null,
+        search: search || null
       },
     },
   });
 
   const { mutate } = useApiMutation({
-    url: "/services/delete",
-    method: "DELETE",
+    url: '/products/delete',
+    method: 'DELETE',
     onSuccess: () => {
-      toast.success("Xizmat muvaffaqiyatli o‘chirildi");
-      refetch();
+      toast.success('Mahsulot muvaffaqiyatli o‘chirildi')
+      refetch()
     },
     onError: () => {
-      toast.error("Xizmat o‘chirishda xatolik yuz berdi");
+      toast.error('Mahsulot o‘chirishda xatolik yuz berdi')
     },
   });
 
@@ -62,8 +55,8 @@ const Services = () => {
     setFormType(type);
   };
 
-  const handleEdit = (record: DataServicesType, type: ModulsType) => {
-    setServicesSingleData(record);
+  const handleEdit = (record: ProductsType, type: ModulsType) => {
+    setProductSingleData(record);
     showModal(type);
   };
 
@@ -76,11 +69,11 @@ const Services = () => {
     setPagination({ ...pagination, current: 1 });
   };
 
-  const handleDelete = (record: DataServicesType) => {
+  const handleDelete = (record: ProductsType) => {
     mutate({ id: record?.id });
   };
 
-  const columns: ColumnsType<DataServicesType> = [
+  const columns: ColumnsType<ProductsType> = [
     {
       title: "№",
       render: (_, __, index) => (
@@ -95,66 +88,64 @@ const Services = () => {
       dataIndex: "titleUz",
       key: "titleUz",
       render: (text: string) => (
-        <div
-          style={{
-            maxWidth: 250,
-            maxHeight: 150,
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
           {text}
-        </div>
-      ),
+        </div>)
     },
     {
       title: "Nomi (Ru)",
       dataIndex: "titleRu",
       key: "titleRu",
       render: (text: string) => (
-        <div
-          style={{
-            maxWidth: 250,
-            maxHeight: 150,
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
           {text}
-        </div>
-      ),
+        </div>)
     },
     {
       title: "Nomi (En)",
       dataIndex: "titleEn",
       key: "titleEn",
       render: (text: string) => (
-        <div
-          style={{
-            maxWidth: 250,
-            maxHeight: 150,
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
           {text}
-        </div>
-      ),
+        </div>)
+    },
+    
+    {
+      title: "Kategoriya",
+      dataIndex: "category",
+      key: "category",
+      render: (text: CategoryType) => (
+        <div style={{
+          maxWidth: 250,
+          maxHeight: 150,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          {text?.titleUz}
+        </div>)
     },
     {
-      title: "Daraja",
-      dataIndex: "levels",
-      render: (record: LevelsType[]) => (
-        <span
-          style={{
-            maxWidth: 250,
-            maxHeight: 150,
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
-          {record?.[0]?.nameUz}
-        </span>
+      title: "Rasm",
+      dataIndex: "images",
+      key: "images",
+      render: (image: string) => (
+        <img src={image} alt="Product" className="max-w-[100px] max-h-[150px] h-auto object-cover rounded" />
       ),
     },
     {
@@ -172,7 +163,13 @@ const Services = () => {
             icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             onConfirm={() => handleDelete(record)}
           >
-            <Button type="text" danger icon={<DeleteOutlined />} />
+            <Button
+              type="text"
+              danger
+              icon={
+                <DeleteOutlined />
+              }
+            />
           </Popconfirm>
         </Space>
       ),
@@ -182,7 +179,7 @@ const Services = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <div className="text-[23px] font-semibold">Xizmatlar</div>
+        <div className="text-[23px] font-semibold">Mahsulotlar</div>
         <div className="flex items-center gap-3">
           <Search
             placeholder="Qidiruv"
@@ -190,9 +187,7 @@ const Services = () => {
             enterButton
             allowClear
           />
-          <Button type="primary" onClick={() => showModal("add")}>
-            Qo'shish
-          </Button>
+          <Button type="primary" onClick={() => showModal("add")}>Qo'shish</Button>
         </div>
       </div>
 
@@ -207,30 +202,21 @@ const Services = () => {
           pageSize: pagination.pageSize,
           total: data?.total || 0, // agar backend totalni jo'natsa
           showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "50"],
+          pageSizeOptions: ['10', '20', '50'],
           onChange: (page, pageSize) => {
             setPagination({ current: page, pageSize });
           },
         }}
       />
-
       <UniversalModal
         open={isModalOpen}
-        title={formType === "edit" ? "Xizmatni tahrirlash" : "Xizmat qo'shish"}
+        title={formType === "edit" ? "Mahsulotni tahrirlash" : "Mahsulot qo'shish"}
         onCancel={handleCancel}
       >
-        {formType === "edit" ? (
-          <EditServices
-            onCancel={handleCancel}
-            data={servicesSingleData}
-            refetch={refetch}
-          />
-        ) : (
-          <AddServices refetch={refetch} onCancel={handleCancel} />
-        )}
+        {formType === "edit" ? <EditProduct onCancel={handleCancel} data={productSingleData} refetch={refetch}/> : <AddProduct refetch={refetch} onCancel={handleCancel}/>} 
       </UniversalModal>
     </div>
   );
 };
 
-export default Services;
+export default Products;

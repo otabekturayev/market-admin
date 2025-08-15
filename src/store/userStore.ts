@@ -37,7 +37,7 @@ export const useStore = create<AuthState>()(
       clearUser: () => set({ accessToken: null, refreshToken: null, user: null }),
     }),
     {
-      name: "user-store-tour-admin",
+      name: "user-store-market-admin",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         accessToken: state.accessToken,

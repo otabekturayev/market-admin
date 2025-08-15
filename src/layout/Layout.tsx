@@ -7,20 +7,10 @@ import {
 import { Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "../store/userStore";
-import { SiLevelsdotfyi } from "react-icons/si";
-import {
-  MdMiscellaneousServices,
-  MdOutlineAttractions,
-  MdOutlineModeOfTravel,
-  MdOutlineRateReview,
-  MdOutlineTravelExplore,
-} from "react-icons/md";
-import { LuCalendarDays } from "react-icons/lu";
-import { PiArticleNyTimesBold } from "react-icons/pi";
-import { TbArticle } from "react-icons/tb";
-import { FaHeadset } from "react-icons/fa";
+import { FaBoxOpen } from "react-icons/fa";
 import { BsSun, BsMoon } from "react-icons/bs"; // Sun va Moon iconlar
 import { useDarkModeStore } from "../store/darkModeStore";
+import { BiCategory } from "react-icons/bi";
 
 const { Header, Sider, Content } = Layout;
 
@@ -39,12 +29,8 @@ const RootLayout: React.FC = () => {
     switch (location?.pathname) {
       case "/":
         return ["1"];
-      case "/travel-designers":
+      case "/products":
         return ["2"];
-        case "/experience":
-        return ["3"];
-      case "/travel-types":
-        return ["4"];
         case "/sub-travel":
         return ["5"];
       case "/travel":
@@ -102,79 +88,15 @@ const RootLayout: React.FC = () => {
           items={[
             {
               key: "1",
-              icon: <SiLevelsdotfyi />,
-              label: <Link to="/">Daraja</Link>,
+              icon: <BiCategory />,
+              label: <Link to="/">Kategoriya</Link>,
             },
             {
               key: "2",
-              icon: <MdOutlineModeOfTravel />,
-              label: <Link to="/travel-designers">Sayohat dizaynerlari</Link>,
+              icon: <FaBoxOpen />,
+              label: <Link to="/products">Products</Link>,
             },
-            {
-              key: "3",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/experience">Sayohat ta'surotlari</Link>,
-            },
-            {
-              key: "4",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel-types">Sayohat turi</Link>,
-            },
-            {
-              key: "5",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/sub-travel">Ichki sayohat</Link>,
-            },
-            {
-              key: "6",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel">Sayohat</Link>,
-            },
-            {
-              key: "7",
-              icon: <MdOutlineAttractions />,
-              label: <Link to="/attractions">Diqqatga sazovor joylar</Link>,
-            },
-            {
-              key: "8",
-              icon: <MdMiscellaneousServices />,
-              label: <Link to="/services">Xizmatlar</Link>,
-            },
-            {
-              key: "9",
-              icon: <LuCalendarDays />,
-              label: <Link to="/days">Kunlar</Link>,
-            },
-            {
-              key: "10",
-              icon: <PiArticleNyTimesBold />,
-              label: <Link to="/articles">Maqolalar</Link>,
-            },
-            {
-              key: "11",
-              icon: <TbArticle />,
-              label: <Link to="/subarticles">Kichkina maqolalar</Link>,
-            },
-            {
-              key: "12",
-              icon: <FaHeadset />,
-              label: <Link to="/operators">Operatorlar</Link>,
-            },
-            {
-              key: "13",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/sub-travel-ideas">Sayohat g'oyasi</Link>,
-            },
-            {
-              key: "14",
-              icon: <MdOutlineTravelExplore />,
-              label: <Link to="/travel-ideas">Sayohat g'oyalari</Link>,
-            },
-            {
-              key: "15",
-              icon: <MdOutlineRateReview />,
-              label: <Link to="/reviews">Izohlar</Link>,
-            },
+            
           ]}
         />
       </Sider>

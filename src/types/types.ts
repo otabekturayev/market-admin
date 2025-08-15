@@ -1,42 +1,15 @@
 export type ModulsType = "add" | "edit" | "";
 
-export interface LevelsType {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  nameUz: string;
-  nameRu: string;
-  nameEn: string;
-}
-
-export interface TravelDesignersType {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  nameUz: string;
-  nameRu: string;
-  nameEn: string;
-  email: string;
-  image: string;
-  aboutUz: string;
-  aboutRu: string;
-  aboutEn: string;
-}
-
-export interface ExprensType{
+export interface CategoryType {
   id: string;
   createdAt: string;
   updatedAt: string;
   titleUz: string;
   titleRu: string;
   titleEn: string;
-  subTitleUz: string;
-  subTitleRu: string;
-  subTitleEn: string;
-  image: string;
-  descreptionUz: string;
-  descreptionRu: string;
-  descreptionEn: string;
+  descriptionUz: string;
+  descriptionRu: string;
+  descriptionEn: string;
 }
 
 export interface ReviewsType{
@@ -51,23 +24,15 @@ export interface ReviewsType{
   textRu: string;
 }
 
-export interface TravelTypesType {
+export interface ProductsType {
     id: string;
     createdAt: string;
     updatedAt: string;
     titleUz: string;
     titleRu: string;
     titleEn: string;
-    descreptionUz: string;
-    descreptionRu: string;
-    descreptionEn: string;
-    tourTitleUz:string;
-    tourTitleRu: string;
-    tourTitleEn: string;
-    travelIdeaId: string
+    category: CategoryType
     image: string;
-    exprensId: string
-    expren: ExprensType
   };
   export interface DaysType{
     id: string;
@@ -140,14 +105,7 @@ export interface TravelTypesType {
     travel: TravelType;
   }
 
-  export interface DataTravelType extends TravelType{
-    travelDesigner: TravelDesignersType,
-    travelType: TravelTypesType,
-    levels: LevelsType[],
-    attactions: AttractionsType[],
-    day: DaysType[]
-    subTravels: string[]
-  }
+
   
   export interface ServicesType{
     id: string;
@@ -156,10 +114,6 @@ export interface TravelTypesType {
     titleUz: string;
     titleRu: string;
     titleEn: string
-  }
-
-  export interface DataServicesType extends ServicesType{
-    levels: LevelsType[];
   }
 
   export interface ArticlesType{

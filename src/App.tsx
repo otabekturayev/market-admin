@@ -1,40 +1,27 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import RootLayout from "./layout/Layout";
 import Error404 from "./pages/Error404/Error404";
 import Login from "./pages/Auth/Login";
-import Lavel from "./pages/Lavel/Lavel";
-import Travel from "./pages/Travel/Travel";
-import Attractions from "./pages/Attractions/Attractions";
-import TravelDesigners from "./pages/TravelDesigner/TravelDesigner";
-import Services from "./pages/Services/Services";
-import Days from "./pages/Days/Days";
-import Articles from "./pages/Articles/Articles";
-import SubArticles from "./pages/SubArticles/SubArticles";
-import Operators from "./pages/Operators/Operators";
-import TravelTypes from "./pages/TRavelTypes/TravelTypes";
+import Category from "./pages/Category/Category";
+import Products from "./pages/Products/Products";
 import { ConfigProvider } from "antd";
 import { useDarkModeStore } from "./store/darkModeStore";
-// import { useStore } from "./store/userStore";
-// import { useEffect } from "react";
-import SubTRivelIdeas from "./pages/SubTrivelIdeas/SubTRivelIdeas";
-import TrivelIdeas from "./pages/TrivelIdeas/TrivelIdeas";
-import SubTravel from "./pages/SubTravel/SubTravel";
-import Experience from "./pages/Experience/Experience";
-import Reviews from "./pages/Reviews/Reviews";
+import { useStore } from "./store/userStore";
+import { useEffect } from "react";
 
 const App: React.FC = () => {
   const { darkMode } = useDarkModeStore();
-  // const navigate = useNavigate();
-  // const { accessToken } = useStore();
+  const navigate = useNavigate();
+  const { accessToken } = useStore();
 
-  // useEffect(() => {
-  //   if (!accessToken) {
-  //     navigate("/login");
-  //   }
-  // }, [accessToken]);
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken]);
 
   return (
     <>
@@ -52,21 +39,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<RootLayout />}>
-            <Route index element={<Lavel />} />
-            <Route path="/travel-types" element={<TravelTypes />} />
-            <Route path="/travel-designers" element={<TravelDesigners />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/sub-travel" element={<SubTravel />} />
-            <Route path="/travel" element={<Travel />} />
-            <Route path="/attractions" element={<Attractions />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/days" element={<Days />} />
-            <Route path="/articles" element={<Articles />} />
-            <Route path="/subarticles" element={<SubArticles />} />
-            <Route path="/operators" element={<Operators />} />
-            <Route path="/sub-travel-ideas" element={<SubTRivelIdeas />}/>
-            <Route path="/travel-ideas" element={<TrivelIdeas />}/>
-            <Route path="/reviews" element={<Reviews />}/>
+            <Route index element={<Category />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/*" element={<Error404 />} />
           </Route>
         </Routes>

@@ -4,7 +4,7 @@ import axios, {
   } from "axios";
 import { useStore } from "../store/userStore";
 
-const REACT_APP_BASE_URL = "https://golden.fayzullayevsh.uz";
+const REACT_APP_BASE_URL = "https://bozorlik.fayzullayevsh.uz";
 
 const api = axios.create({
   baseURL: REACT_APP_BASE_URL,
@@ -13,7 +13,7 @@ const api = axios.create({
 // Request Interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const storedUser = localStorage.getItem("user-store-tour-admin");
+    const storedUser = localStorage.getItem("user-store-market-admin");
     const accessToken = storedUser
       ? JSON.parse(storedUser)?.state?.accessToken
       : null;
@@ -34,7 +34,7 @@ api.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
     if (error.response?.status === 401 && !originalRequest._retry) {
 
-      const storedUser = localStorage.getItem("user-store-tour-admin");
+      const storedUser = localStorage.getItem("user-store-market-admin");
       const refreshToken = storedUser
       ? JSON.parse(storedUser)?.state?.refreshToken
       : null;
@@ -44,7 +44,7 @@ api.interceptors.response.use(
       if (refreshToken) {
         originalRequest._retry = true;
         try {
-          const refreshResponse = await axios.post(`${REACT_APP_BASE_URL}/auth/refresh-token`, {
+          const refreshResponse = await axios.post(`${REACT_APP_BASE_URL}/auth/refresh/admin`, {
             refresh_token: refreshToken,
           });
           

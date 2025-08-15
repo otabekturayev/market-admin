@@ -15,8 +15,8 @@ interface FormValues {
 const Login: React.FC = () => {
   const { control, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
     defaultValues: {
-      login: 'admin1234',
-      password: 'admin1996',
+      login: 'admin',
+      password: 'admin',
     },
   });
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
   // useApiMutation hook'ini chaqirish
   const { mutate, isLoading } = useApiMutation({
-    url: '/auth/login',
+    url: '/auth/login/admin',
     method: 'POST',
     onSuccess: (data) => {
       setUser(data?.access_token, data?.refresh_token, data?.id);

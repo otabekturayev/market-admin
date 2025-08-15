@@ -4,7 +4,7 @@ import api from '../service/api';
 
 // API'dan qaytadigan umumiy shakl
 interface ApiResponse<T> {
-  data: T[];
+  items: T[];
   total: number;
   page: number;
   limit: number;
@@ -31,7 +31,7 @@ export const useFetch = <T = unknown>({
       const response = await api.get<{ data: ApiResponse<T> }>(url, config);
 
       return {
-        items: response.data.data.data,
+        items: response?.data?.data?.items,
         total: response.data.data.total,
       };
     },
