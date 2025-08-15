@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RootLayout from "./layout/Layout";
 import Error404 from "./pages/Error404/Error404";
 import Login from "./pages/Auth/Login";
